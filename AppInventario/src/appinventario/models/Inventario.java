@@ -10,11 +10,12 @@ package appinventario.models;
  */
 public class Inventario {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    int id;
+    String nombre;
+    
+    public Inventario(int id;String nombre){
+        this.id=id;
+        this.nombre=nombre;
     }
     
 }

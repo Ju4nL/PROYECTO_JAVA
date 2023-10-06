@@ -13,7 +13,7 @@ public class Inventario {
     int id;
     String nombre;
     
-    public Inventario(int id;String nombre){
+    public Inventario(int id,String nombre){
         this.id=id;
         this.nombre=nombre;
     }

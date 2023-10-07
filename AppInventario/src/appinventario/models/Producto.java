@@ -1,19 +1,18 @@
-
 package appinventario.models;
 
-
 public class Producto {
-    //atributos de producto
+    
+    //Atributos de producto
     private int id; //identificador de producto
     private String nombre; //nombre de producto
     private String descripcion; //descripcion de producto 
     private double precio; //precio de producto
     private int cantidad_stock; //cantidad disponible en el inventario
-    private String unidad_medida; //unidad de medida(unida, gramos, litros, kilogramos)
+    private String unidad_medida; //unidad de medida(unidad, gramos, litros, kilogramos)
     private Proveedor proveedor; // proveedor del producto
     
+    //Constructor
     public Producto (int id, String nombre, String descripcion, double precio, int cantidad_stock, String unidad_medida, Proveedor proveedor){
-    
         this.id = id; 
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -21,7 +20,6 @@ public class Producto {
         this.cantidad_stock = cantidad_stock;
         this.unidad_medida = unidad_medida;
         this.proveedor = proveedor;
-        
     }
     
     //getters
@@ -43,7 +41,6 @@ public class Producto {
     public String getUnidad_medida () {
         return unidad_medida;
     }
-    
     public Proveedor getProveedor () {
         return proveedor;
     }
@@ -67,7 +64,7 @@ public class Producto {
     public void setUnidad_medida (String medida) {
         this.unidad_medida = medida;
     }
-    public void setProveedor (Proveedor miproveedor){
-        this.proveedor = miproveedor;
+    public void setProveedor (Proveedor proveedor){
+        this.proveedor = proveedor;
     }
 }

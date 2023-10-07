@@ -67,4 +67,7 @@ public class Producto {
     public void setUnidad_medida (String medida) {
         this.unidad_medida = medida;
     }
+    public void setProveedor (Proveedor miproveedor){
+        this.proveedor = miproveedor;
+    }
 }

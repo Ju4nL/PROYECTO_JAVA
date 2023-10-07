@@ -9,9 +9,10 @@ public class Producto {
     private String descripcion; //descripcion de producto 
     private double precio; //precio de producto
     private int cantidad_stock; //cantidad disponible en el inventario
-    private String unidad_medida; //unidad de medida(unid, gr, l, kl)
+    private String unidad_medida; //unidad de medida(unida, gramos, litros, kilogramos)
+    private Proveedor proveedor; // proveedor del producto
     
-    public Producto (int id, String nombre, String descripcion, double precio, int cantidad_stock, String unidad_medida){
+    public Producto (int id, String nombre, String descripcion, double precio, int cantidad_stock, String unidad_medida, Proveedor proveedor){
     
         this.id = id; 
         this.nombre = nombre;
@@ -19,6 +20,8 @@ public class Producto {
         this.precio = precio;
         this.cantidad_stock = cantidad_stock;
         this.unidad_medida = unidad_medida;
+        this.proveedor = proveedor;
+        
     }
     
     //getters
@@ -39,6 +42,10 @@ public class Producto {
     }
     public String getUnidad_medida () {
         return unidad_medida;
+    }
+    
+    public Proveedor getProveedor () {
+        return proveedor;
     }
     
     //setters

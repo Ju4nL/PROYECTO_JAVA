@@ -34,7 +34,9 @@ public class CSVHandler {
                     int stock = Integer.parseInt(celdas[4]); // CantidadStock_Producto
                     String unidadMedida = celdas[5]; // UnidadMedida_Producto
                     int idProveedor = Integer.parseInt(celdas[6]); // ID_Proveedor
+                    // Obtenemos el proveedor por su ID
                     Proveedor proveedor = CSVProveedorHandler.obtenerProveedorPorID(idProveedor);
+                    // Creamos un nuevo modelo y lo agregamos a la coleccion de productos
                     Producto producto = new Producto(id, nombre, descripcion, precio, stock, unidadMedida, proveedor);
                     productos.add(producto);
                 }
@@ -48,11 +50,26 @@ public class CSVHandler {
         public static Producto obtenerProductoPorID(int idProducto) {
             List<Producto> productos = leerProductos();
             for (Producto producto : productos) {
-                if (producto.getId() == idProducto){
+                if (producto.getId() == idProducto) {
                     return producto; // Se encontró el producto con el ID especificado
                 }
             }
             return null; // No se encontró ningún producto con el ID especificado
+        }
+
+        // Método para guardar un nuevo registro al producto.csv
+        public static boolean registrarProducto(Producto pr) {
+            try (FileWriter fw = new FileWriter(PRODUCTOS_FILE_PATH, true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    PrintWriter out = new PrintWriter(bw)) {
+                String nuevaLinea = pr.getId() + "," + pr.getNombre() + "," + pr.getDescripcion() + "," + pr.getPrecio()
+                        + "," + pr.getCantidad_stock() + "," + pr.getUnidad_medida() + "," + pr.getProveedor().getId();
+                out.println(nuevaLinea);
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 
@@ -67,11 +84,11 @@ public class CSVHandler {
                 while ((linea = br.readLine()) != null) {
                     String[] celdas = linea.split(",");
                     // Valores que se obtiene de cada linea
-                    int id = Integer.parseInt(celdas[0]);
-                    String nombre = celdas[1];
-                    String telefono = celdas[2];
-                    String direccion = celdas[3];
-                    String email = celdas[4];
+                    int id = Integer.parseInt(celdas[0]); // ID_Proveedor
+                    String nombre = celdas[1]; // Nombre_Proveedor
+                    String telefono = celdas[2]; // Telefono_Proveedor
+                    String direccion = celdas[3]; // Dirección_Proveedor
+                    String email = celdas[4]; // Email_Proveedor
                     // Creamos un nuevo modelo y lo agregamos a la coleccion de proveedores
                     Proveedor proveedor = new Proveedor(id, nombre, telefono, direccion, email);
                     proveedores.add(proveedor);
@@ -91,6 +108,21 @@ public class CSVHandler {
                 }
             }
             return null; // No se encontró ningún proveedor con el ID especificado
+        }
+
+        // Método para guardar un nuevo registro al proveedores.csv
+        public static boolean registrarProveedor(Proveedor pr) {
+            try (FileWriter fw = new FileWriter(PROVEEDORES_FILE_PATH, true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    PrintWriter out = new PrintWriter(bw)) {
+                String nuevaLinea = pr.getId() + "," + pr.getNombre() + "," + pr.getTelefono() + "," + pr.getDireccion()
+                        + "," + pr.getEmail();
+                out.println(nuevaLinea);
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 

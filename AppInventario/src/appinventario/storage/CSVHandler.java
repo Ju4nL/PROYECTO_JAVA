@@ -11,8 +11,10 @@ public class CSVHandler {
 
     // Atributo de la clase
     private static String rutaEjecucion = System.getProperty("user.dir");
-    private static final String PRODUCTOS_FILE_PATH = rutaEjecucion + "/AppInventario/src/appinventario/csv/productos.csv";
-    private static final String PROVEEDORES_FILE_PATH = rutaEjecucion + "/AppInventario/src/appinventario/csv/proveedores.csv";
+    private static final String PRODUCTOS_FILE_PATH = rutaEjecucion
+            + "/AppInventario/src/appinventario/csv/productos.csv";
+    private static final String PROVEEDORES_FILE_PATH = rutaEjecucion
+            + "/AppInventario/src/appinventario/csv/proveedores.csv";
 
     // Clase interna para manejar productos
     public static class CSVProductoHandler {
@@ -31,7 +33,7 @@ public class CSVHandler {
                     double precio = Double.parseDouble(celdas[3]); // Precio_Producto
                     int stock = Integer.parseInt(celdas[4]); // CantidadStock_Producto
                     String unidadMedida = celdas[5]; // UnidadMedida_Producto
-                    int idProveedor = Integer.parseInt(celdas[6]); //ID_Proveedor
+                    int idProveedor = Integer.parseInt(celdas[6]); // ID_Proveedor
                     Proveedor proveedor = CSVProveedorHandler.obtenerProveedorPorID(idProveedor);
                     Producto producto = new Producto(id, nombre, descripcion, precio, stock, unidadMedida, proveedor);
                     productos.add(producto);
@@ -41,12 +43,23 @@ public class CSVHandler {
             }
             return productos;
         }
+
+        // Método para buscar un Producto por su ID
+        public static Producto obtenerProductoPorID(int idProducto) {
+            List<Producto> productos = leerProductos();
+            for (Producto producto : productos) {
+                if (producto.getId() == idProducto){
+                    return producto; // Se encontró el producto con el ID especificado
+                }
+            }
+            return null; // No se encontró ningún producto con el ID especificado
+        }
     }
 
-    //Clase interna para manejar proveedores
+    // Clase interna para manejar proveedores
     public static class CSVProveedorHandler {
-        //Método para leer proveedores desde el archivo CSV de proveedores
-        //ID_Proveedor,Nombre_Proveedor,Telefono_Proveedor,Direccion_Proveedor,Email_Proveedor
+        // Método para leer proveedores desde el archivo CSV de proveedores
+        // ID_Proveedor,Nombre_Proveedor,Telefono_Proveedor,Direccion_Proveedor,Email_Proveedor
         public static List<Proveedor> leerProveedores() {
             List<Proveedor> proveedores = new ArrayList<>();
             try (BufferedReader br = new BufferedReader(new FileReader(PROVEEDORES_FILE_PATH))) {
@@ -59,7 +72,7 @@ public class CSVHandler {
                     String telefono = celdas[2];
                     String direccion = celdas[3];
                     String email = celdas[4];
-                    //Creamos un nuevo modelo y lo agregamos a la coleccion de proveedores
+                    // Creamos un nuevo modelo y lo agregamos a la coleccion de proveedores
                     Proveedor proveedor = new Proveedor(id, nombre, telefono, direccion, email);
                     proveedores.add(proveedor);
                 }
@@ -69,15 +82,15 @@ public class CSVHandler {
             return proveedores;
         }
 
-        //Método para obtener buscar un Proveedor por su ID
+        // Método para buscar un Proveedor por su ID
         public static Proveedor obtenerProveedorPorID(int idProveedor) {
             List<Proveedor> proveedores = leerProveedores();
             for (Proveedor proveedor : proveedores) {
                 if (proveedor.getId() == idProveedor) {
-                    return proveedor; //Se encontró el proveedor con el ID especificado
+                    return proveedor; // Se encontró el proveedor con el ID especificado
                 }
             }
-            return null; //No se encontró ningún proveedor con el ID especificado
+            return null; // No se encontró ningún proveedor con el ID especificado
         }
     }
 

@@ -10,8 +10,9 @@ import java.io.*;
 public class CSVHandler {
 
     // Atributo de la clase
-    private static final String PRODUCTOS_FILE_PATH = "productos.csv";
-    private static final String PROVEEDORES_FILE_PATH = "proveedores.csv";
+    private static String rutaEjecucion = System.getProperty("user.dir");
+    private static final String PRODUCTOS_FILE_PATH = rutaEjecucion + "/AppInventario/src/appinventario/csv/productos.csv";
+    private static final String PROVEEDORES_FILE_PATH = rutaEjecucion + "/AppInventario/src/appinventario/csv/proveedores.csv";
 
     // Clase interna para manejar productos
     public static class CSVProductoHandler {

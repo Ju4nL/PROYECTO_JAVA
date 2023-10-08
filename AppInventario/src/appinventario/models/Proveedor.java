@@ -22,5 +22,17 @@ public class Proveedor {
     public int getId() {
         return id;
     }
+        public String getNombre() {
+        return nombre;
+    }
+        public String getTelefono() {
+        return telefono;
+    }
+        public String getDireccion() {
+        return direccion;
+    }
+        public String getEmail() {
+        return email;
+    }
 
 }

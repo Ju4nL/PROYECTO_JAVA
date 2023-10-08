@@ -14,7 +14,17 @@ public class testezer {
     public static void main(String[] args) {
         // Sí funciona -> lproveedores();
         // Sí funciona -> lidproveedor(3);
-        lproductos();
+        // Sí funciona -> lproductos();
+        // Sí funciona -> rproveedor();
+    }
+
+    public static void rproveedor() {
+        Proveedor pr = new Proveedor(2, "Altomayo", "47962757", "Av. Bolognesi 234", "altomayo@peru.com");
+        if (CSVProveedorHandler.registrarProveedor(pr)) {
+            System.out.println("Se registró correctamente!");
+        } else {
+            System.out.println("No se pudo registra u.u");
+        }
     }
 
     public static void lproductos() {

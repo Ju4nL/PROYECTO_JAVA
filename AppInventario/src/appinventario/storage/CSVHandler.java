@@ -31,13 +31,12 @@ public class CSVHandler {
                     String nombre = celdas[1]; // Nombre_Producto
                     String descripcion = celdas[2]; // Descripcion_Producto
                     double precio = Double.parseDouble(celdas[3]); // Precio_Producto
-                    int stock = Integer.parseInt(celdas[4]); // CantidadStock_Producto
-                    String unidadMedida = celdas[5]; // UnidadMedida_Producto
-                    int idProveedor = Integer.parseInt(celdas[6]); // ID_Proveedor
+                    String unidadMedida = celdas[4]; // UnidadMedida_Producto
+                    int idProveedor = Integer.parseInt(celdas[5]); // ID_Proveedor
                     // Obtenemos el proveedor por su ID
                     Proveedor proveedor = CSVProveedorHandler.obtenerProveedorPorID(idProveedor);
                     // Creamos un nuevo modelo y lo agregamos a la coleccion de productos
-                    Producto producto = new Producto(id, nombre, descripcion, precio, stock, unidadMedida, proveedor);
+                    Producto producto = new Producto(id, nombre, descripcion, precio, unidadMedida, proveedor);
                     productos.add(producto);
                 }
             } catch (IOException e) {
@@ -62,8 +61,7 @@ public class CSVHandler {
             try (FileWriter fw = new FileWriter(PRODUCTOS_FILE_PATH, true);
                     BufferedWriter bw = new BufferedWriter(fw);
                     PrintWriter out = new PrintWriter(bw)) {
-                String nuevaLinea = pr.getId() + "," + pr.getNombre() + "," + pr.getDescripcion() + "," + pr.getPrecio()
-                        + "," + pr.getCantidad_stock() + "," + pr.getUnidad_medida() + "," + pr.getProveedor().getId();
+                String nuevaLinea = pr.toCSV();
                 out.println(nuevaLinea);
                 return true;
             } catch (IOException e) {
@@ -115,8 +113,7 @@ public class CSVHandler {
             try (FileWriter fw = new FileWriter(PROVEEDORES_FILE_PATH, true);
                     BufferedWriter bw = new BufferedWriter(fw);
                     PrintWriter out = new PrintWriter(bw)) {
-                String nuevaLinea = pr.getId() + "," + pr.getNombre() + "," + pr.getTelefono() + "," + pr.getDireccion()
-                        + "," + pr.getEmail();
+                String nuevaLinea = pr.toCSV();
                 out.println(nuevaLinea);
                 return true;
             } catch (IOException e) {

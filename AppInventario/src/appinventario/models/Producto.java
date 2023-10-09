@@ -7,17 +7,15 @@ public class Producto {
     private String nombre; //nombre de producto
     private String descripcion; //descripcion de producto 
     private double precio; //precio de producto
-    private int cantidad_stock; //cantidad disponible en el inventario
     private String unidad_medida; //unidad de medida(unidad, gramos, litros, kilogramos)
     private Proveedor proveedor; // proveedor del producto
     
     //Constructor
-    public Producto (int id, String nombre, String descripcion, double precio, int cantidad_stock, String unidad_medida, Proveedor proveedor){
+    public Producto (int id, String nombre, String descripcion, double precio, String unidad_medida, Proveedor proveedor){
         this.id = id; 
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.cantidad_stock = cantidad_stock;
         this.unidad_medida = unidad_medida;
         this.proveedor = proveedor;
     }
@@ -34,9 +32,6 @@ public class Producto {
     }
     public double getPrecio (){
         return precio;
-    }
-    public int getCantidad_stock (){
-        return cantidad_stock;
     }
     public String getUnidad_medida () {
         return unidad_medida;
@@ -58,13 +53,16 @@ public class Producto {
     public void setPrecio (double precio){
         this.precio = precio;
     }
-    public void setCantidad_stock (int stock){
-        this.cantidad_stock = stock;
-    }
     public void setUnidad_medida (String medida) {
         this.unidad_medida = medida;
     }
     public void setProveedor (Proveedor proveedor){
         this.proveedor = proveedor;
     }
+
+    // Método CVS
+    public String toCSV() {
+        return id + "," + nombre + "," + descripcion + "," + precio + "," + unidad_medida + "," + proveedor.getId();
+    }
+    
 }

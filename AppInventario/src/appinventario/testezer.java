@@ -16,6 +16,17 @@ public class testezer {
         // Sí funciona -> lidproveedor(3);
         // Sí funciona -> lproductos();
         // Sí funciona -> rproveedor();
+        rproducto();
+    }
+
+    public static void rproducto() {
+        Proveedor prov = CSVProveedorHandler.obtenerProveedorPorID(2);
+        Producto pr = new Producto(6, "Mantequilla", "Manti", 1.80, "Kilos", prov);
+        if (CSVProductoHandler.registrarProducto(pr)) {
+            System.out.println("Se registró correctamente!");
+        } else {
+            System.out.println("No se pudo registra u.u");
+        }
     }
 
     public static void rproveedor() {
@@ -30,7 +41,9 @@ public class testezer {
     public static void lproductos() {
         List<Producto> productos = CSVProductoHandler.leerProductos();
         for (Producto pr : productos) {
-            System.out.println(pr.getProveedor().getNombre());
+            System.out.println("PRODUCTO -> ID: " + pr.getId() + " | N: " + pr.getNombre() + " | D: "
+                    + pr.getDescripcion() + " | P: " + pr.getPrecio() + " | U: "
+                    + pr.getUnidad_medida() + " | IDPROVEEDOR: " + pr.getProveedor().getId());
         }
     }
 

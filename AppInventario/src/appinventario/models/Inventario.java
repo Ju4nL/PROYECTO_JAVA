@@ -16,6 +16,8 @@ public class Inventario {
     public Inventario(int id,String nombre){
         this.id=id;
         this.nombre=nombre;
+        
+        
     }
     
 }

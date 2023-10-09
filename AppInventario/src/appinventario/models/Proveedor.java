@@ -8,7 +8,7 @@ public class Proveedor {
     private String telefono; // telefono del proveedor
     private String direccion; // dirección del proveedor
     private String email; // correo electronico del proveedor
-
+    private String filePath=System.getProperty("user.dir")+ "/src/appinventario/csv/proveedores.csv";
     // Constructor
     public Proveedor(int _id, String _nombre, String _telefono, String _direccion, String _email) {
         this.id = _id;
@@ -22,17 +22,37 @@ public class Proveedor {
     public int getId() {
         return id;
     }
-        public String getNombre() {
+    public String getNombre() {
         return nombre;
     }
-        public String getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
-        public String getDireccion() {
+        
+    public String getDireccion() {
         return direccion;
     }
-        public String getEmail() {
+    
+    public String getEmail() {
         return email;
     }
+    
+    public String getFilePath() {
+        return filePath;
+    }
+    
+    // Metodos CSV
+    public String toCSV() {
+        return id + "," + nombre+","+telefono+","+direccion+","+email;
+    }
 
+
+    public void fromCSV(String csvData) {                      
+        String[] data = csvData.split(",");
+        this.id = Integer.parseInt(data[0]);
+        this.nombre = data[1];
+        this.telefono = data[2];
+        this.direccion = data[3];
+        this.email = data[4];        
+    }
 }

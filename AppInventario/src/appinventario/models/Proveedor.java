@@ -1,6 +1,8 @@
 package appinventario.models;
 
-public class Proveedor {
+import appinventario.storage.CSVConvertible;
+
+public class Proveedor implements CSVConvertible{
 
     // Aqui sus atributos
     private int id; // identificador del proveedor
@@ -18,8 +20,11 @@ public class Proveedor {
         this.direccion = _direccion;
         this.email = _email;
     }
-
+    public Proveedor() {
+        // Constructor sin argumentos
+    }
     // getters
+    @Override
     public int getId() {
         return id;
     }
@@ -39,16 +44,17 @@ public class Proveedor {
     public String getEmail() {
         return email;
     }
-
+    @Override
     public String getFilePath() {
         return filePath;
     }
 
     // Metodos CSV
+    @Override
     public String toCSV() {
         return id + "," + nombre + "," + telefono + "," + direccion + "," + email;
     }
-
+    @Override
     public void fromCSV(String csvData) {
         String[] data = csvData.split(",");
         this.id = Integer.parseInt(data[0]);

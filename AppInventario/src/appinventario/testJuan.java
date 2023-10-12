@@ -1,6 +1,7 @@
  
 package appinventario;
 
+import appinventario.models.Producto;
 import appinventario.models.Proveedor;
 import appinventario.storage.CSV;
 import java.util.List;
@@ -19,6 +20,7 @@ public class testJuan {
     CSV<Proveedor> proveedorCSV = new CSV<>();
 
     List<Proveedor> proveedores = proveedorCSV.leerCSV(Proveedor.class);
+
     
     for (Proveedor proveedor : proveedores) {
         System.out.println("ID: " + proveedor.getId());

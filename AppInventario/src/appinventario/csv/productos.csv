@@ -1,5 +1,5 @@
-0,Leche,Leche en tarro,2.30,Unidad,0
-1,Arroz,Arroz costeño,5.80,Kilos,0
-2,Azucar,Azucar rubia,4.20,Kilos,1
-6,Mantequilla,Manti,1.8,Kilos,0
-6,Mantequilla,Manti,1.8,Kilos,2
+0,Leche,Lacteos,Leche en tarro,2.30,Unidad
+1,Arroz,Cereales ,Arroz costeño,5.80,Kilos
+2,Azucar,Cereales ,Azucar rubia,4.20,Kilos
+3,Mantequilla,Lacteos,Manti,1.8,Kilos
+4,Mantequilla,Lacteos,Manti,1.8,Kilos

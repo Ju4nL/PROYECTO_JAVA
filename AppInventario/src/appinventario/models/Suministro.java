@@ -1,54 +1,54 @@
 package appinventario.models;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
-public class Suministro {
-
+public class Suministro implements CSVConvertible{
+      
     //Atributos de Suministro
-    private int id;                 //identificador de Suministro
-    private String nombre;          // Nombre del suministro
-    private String categoria;       // Categoría del suministro (ej: verduras, carnes, etc.)
+    private int id;                 // Identificador de Suministro
+    private Producto producto;      // Producto 
     private int cantidad;           // Cantidad actual en stock
-    private String unidadMedida;    // Unidad de medida (ej: kilogramos, litros, etc.)
     private Date fechaCaducidad;    // Fecha de caducidad del suministro
     private Proveedor proveedor;    // Proveedor del suministro
     private String filePath=System.getProperty("user.dir")+ "/src/appinventario/csv/suministros.csv";
+    private static final SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+    
     // Constructor
-    public Suministro(int id,String nombre, String categoria, int cantidad, 
-                      String unidadMedida, Date fechaCaducidad,Proveedor proveedor) {
+    public Suministro(int id,Producto producto, int cantidad,Date fechaCaducidad,Proveedor proveedor) {
+        
         this.id = id; 
-        this.nombre = nombre;
-        this.categoria = categoria;
+        this.producto = producto;
         this.cantidad = cantidad;
-        this.unidadMedida = unidadMedida;
         this.fechaCaducidad = fechaCaducidad;
         this.proveedor = proveedor;
-        
-        //this.proveedor = proveedor;
     }
 
+    public Suministro() {
+    }
+    
+    
     // Métodos
+    @Override
     public int getId (){ 
         return id;
     }   
-    public String getNombre() {
-        return nombre;
+    public Producto getProducto() {
+        return producto;
     }
-    public String getCategoria() {
-            return categoria;
-        }
+    
     public int getCantidad() {
         return cantidad;
     }  
-    public String getUnidadMedida() {
-        return unidadMedida;
-    }
+
     public Date getFechaCaducidad() {
         return fechaCaducidad;
     }
     public Proveedor getProveedor() {
         return proveedor;
     }
+    @Override
     public String getFilePath() {
         return filePath;
     }
@@ -57,17 +57,11 @@ public class Suministro {
     public void setId (int id){ 
         this.id = id;
     } 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }
-    public void setUnidadMedida(String unidadMedida) {
-        this.unidadMedida = unidadMedida;
     }
     public void setFechaCaducidad(Date fechaCaducidad) {
         this.fechaCaducidad = fechaCaducidad;
@@ -78,18 +72,48 @@ public class Suministro {
     
     
     // Metodos CSV
+    @Override
     public String toCSV() {
-        return id + "," + nombre+","+categoria+","+cantidad+","+unidadMedida+fechaCaducidad+proveedor;
+        return id + "," + producto.getId()+","+cantidad+","+formatoFecha.format(fechaCaducidad)+","+proveedor.getId();
     }
 
-
+    @Override
     public void fromCSV(String csvData) {                      
         String[] data = csvData.split(",");
         this.id = Integer.parseInt(data[0]);
-        this.nombre = data[1];
-        this.categoria = data[2];
-        this.cantidad = Integer.parseInt(data[3]);
-        this.unidadMedida = data[4];        
+        this.cantidad = Integer.parseInt(data[2]);
+        
+        //Convirtiendo fecha de String a Date 
+        
+        try {
+            this.fechaCaducidad = formatoFecha.parse(data[3]);
+        } catch (ParseException e) {
+            System.err.println("Error al parsear la fecha: " + data[3]);
+            e.printStackTrace();  // Esto imprimirá la traza del error en la consola
+        }
+        
+        //Creando modelos de relacion
+            //Creando Objeto Producto
+            CSV<Producto> productoCSV = new CSV<>();
+            int productoId = Integer.parseInt(data[1]);
+            Producto productoObjeto=productoCSV.leerPorId(Producto.class, productoId);
+            if (productoObjeto != null) {
+                this.producto = productoObjeto;
+            } else {
+                this.producto=null;
+            }
+
+            //Creando Objeto Proveedor por idproveedor
+            CSV<Proveedor> proveedorCSV = new CSV<>();
+            int proveedorId = Integer.parseInt(data[4]);  // Índice actualizado
+            Proveedor proveedorObjeto = proveedorCSV.leerPorId(Proveedor.class, proveedorId);
+
+            if (proveedorObjeto != null) {
+                this.proveedor = proveedorObjeto;
+            } else {
+                this.proveedor=null;
+            }
+
     }
     
     

@@ -1,7 +1,5 @@
 package appinventario.models;
 
-import appinventario.storage.CSVConvertible;
-
 public class Proveedor implements CSVConvertible{
 
     // Aqui sus atributos
@@ -13,13 +11,15 @@ public class Proveedor implements CSVConvertible{
     private String filePath = System.getProperty("user.dir") + "/src/appinventario/csv/proveedores.csv";
 
     // Constructor
-    public Proveedor(int _id, String _nombre, String _telefono, String _direccion, String _email) {
-        this.id = _id;
-        this.nombre = _nombre;
-        this.telefono = _telefono;
-        this.direccion = _direccion;
-        this.email = _email;
+
+    public Proveedor(int id, String nombre, String telefono, String direccion, String email) {
+        this.id = id;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.email = email;
     }
+     
     public Proveedor() {
         // Constructor sin argumentos
     }

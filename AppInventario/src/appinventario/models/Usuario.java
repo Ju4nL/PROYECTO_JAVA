@@ -9,7 +9,7 @@ public class Usuario implements CSVConvertible {
     private String usuario;
     private String password;
     // Ruta del archivo CSV
-    private String filePath = System.getProperty("user.dir") + "/Appinventario/src/appinventario/csv/usuarios.csv";
+    private String filePath = System.getProperty("user.dir") + "/src/appinventario/csv/usuarios.csv";
 
     // Constructores
     public Usuario() {

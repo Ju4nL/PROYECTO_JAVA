@@ -20,7 +20,7 @@ public class testJuan {
      * @param args the command line arguments
      */
     
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException{
     
     SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     Date fecha = formatoFecha.parse("01/01/2024");

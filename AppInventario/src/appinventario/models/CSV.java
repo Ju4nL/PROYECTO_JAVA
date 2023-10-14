@@ -30,6 +30,7 @@ public class CSV<T extends CSVConvertible> {
         return objetos;
     }
 
+    
     //Funcion para leer el CSV de cualquier ruta
     private List<String[]> leerRegistros(String filePath) {
         List<String[]> registros = new ArrayList<>();
@@ -50,7 +51,7 @@ public class CSV<T extends CSVConvertible> {
         try {
             T instancia = clazz.newInstance();
             List<String[]> registros = leerRegistros(instancia.getFilePath());
-
+            
             for (String[] registro : registros) {
                 instancia.fromCSV(String.join(",", registro));
                 if (instancia.getId() == id) {
@@ -65,15 +66,90 @@ public class CSV<T extends CSVConvertible> {
 
     
     public boolean registrar(T objeto) {
+        
         try (FileWriter fw = new FileWriter(objeto.getFilePath(), true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter out = new PrintWriter(bw)) {
-            String nuevaLinea = objeto.toCSV();
-            out.println(nuevaLinea);
-            return true;
+                BufferedWriter bw = new BufferedWriter(fw)) {
+                String nuevaLinea = objeto.toCSV();
+                bw.write(nuevaLinea);
+                bw.newLine(); // Agregar una nueva línea si es necesario
+                return true;
+                
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();                                                        
             return false;
         }
+        
+        
     }
+    
+ 
+    public boolean eliminarPorId(Class<T> clazz, int id) {
+        try {
+            T instancia = clazz.newInstance();
+            List<String[]> registros = leerRegistros(instancia.getFilePath());
+            List<String[]> nuevosRegistros = new ArrayList<>();
+
+            boolean encontrado = false;
+
+            for (String[] registro : registros) {
+                instancia.fromCSV(String.join(",", registro));
+                if (instancia.getId() == id) {
+                    encontrado = true;
+                } else {
+                    nuevosRegistros.add(registro);
+                }
+            }
+
+            if (encontrado) {
+                // Actualizar el archivo CSV con los registros restantes
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(instancia.getFilePath()))) {
+                    for (String[] nuevoRegistro : nuevosRegistros) {
+                        bw.write(String.join(",", nuevoRegistro));
+                        bw.newLine();
+                    }
+                }
+                return true;
+            }
+        } catch (InstantiationException | IllegalAccessException | IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    
+    public boolean actualizarPorId(Class<T> clazz, int id, T nuevoObjeto) {
+        try {
+            T instancia = clazz.newInstance();
+            List<String[]> registros = leerRegistros(instancia.getFilePath());
+            List<String[]> nuevosRegistros = new ArrayList<>();
+
+            boolean encontrado = false;
+
+            for (String[] registro : registros) {
+                instancia.fromCSV(String.join(",", registro));
+                if (instancia.getId() == id) {
+                    // Reemplazar el objeto existente con el nuevo objeto
+                    nuevosRegistros.add(nuevoObjeto.toCSV().split(",")); // Agregar el nuevo registro
+                    encontrado = true;
+                } else {
+                    nuevosRegistros.add(registro); // Mantener el registro existente sin cambios
+                }
+            }
+
+            if (encontrado) {
+                // Actualizar el archivo CSV con los registros actualizados
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(instancia.getFilePath()))) {
+                    for (String[] nuevoRegistro : nuevosRegistros) {
+                        bw.write(String.join(",", nuevoRegistro));
+                        bw.newLine();
+                    }
+                }
+                return true;
+            }
+        } catch (InstantiationException | IllegalAccessException | IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

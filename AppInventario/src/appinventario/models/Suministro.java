@@ -16,7 +16,8 @@ public class Suministro implements CSVConvertible{
     private static final SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     
     // Constructor
-    public Suministro(Producto producto, int cantidad,Date fechaCaducidad,Proveedor proveedor) {
+    public Suministro(int id,Producto producto, int cantidad,Date fechaCaducidad,Proveedor proveedor) {
+        this.id = id;
         this.producto = producto;
         this.cantidad = cantidad;
         this.fechaCaducidad = fechaCaducidad;
@@ -51,7 +52,6 @@ public class Suministro implements CSVConvertible{
         return filePath;
     }
     
-    @Override
     public void setId (int id){ 
         this.id = id;
     } 

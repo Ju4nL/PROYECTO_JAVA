@@ -15,7 +15,8 @@ public class Usuario implements CSVConvertible {
     public Usuario() {
     }
 
-    public Usuario( String nombre, String apellido, String usuario, String password) {
+    public Usuario(int id, String nombre, String apellido, String usuario, String password) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.usuario = usuario;
@@ -28,7 +29,7 @@ public class Usuario implements CSVConvertible {
         return this.id;
     }
     
-    @Override
+    
     public void setId(int id) {
         this.id = id;
     }

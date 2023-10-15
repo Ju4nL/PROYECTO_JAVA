@@ -13,7 +13,8 @@ public class Producto implements CSVConvertible{
     //private Proveedor proveedor; // proveedor del producto esto lo hara la clase suministro
     
     //Constructor
-    public Producto ( String nombre,String categoria, String descripcion, double precio, String unidad_medida){
+    public Producto (int id,String nombre,String categoria, String descripcion, double precio, String unidad_medida){
+        this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
         this.descripcion = descripcion;
@@ -55,7 +56,6 @@ public class Producto implements CSVConvertible{
     }
     */
     //setters
-    @Override
     public void setId (int id){ 
         this.id = id;
     }   

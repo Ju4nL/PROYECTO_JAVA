@@ -30,7 +30,7 @@ public class CSV<T extends CSVConvertible> {
         return registros;
     }
 
-    private int obtenerIdMaximo() {
+    public int obtenerIdMaximo() {
         List<T> objetos = leerCSV();
 
         int maxId = 0;
@@ -84,8 +84,8 @@ public class CSV<T extends CSVConvertible> {
 
     
     public boolean registrar(T objeto) {
-        int id=obtenerIdMaximo()+1;
-        objeto.setId(id);
+       // int id=obtenerIdMaximo()+1;
+       // objeto.setId(id);
         
         try (FileWriter fw = new FileWriter(objeto.getFilePath(), true);
                 BufferedWriter bw = new BufferedWriter(fw)) {

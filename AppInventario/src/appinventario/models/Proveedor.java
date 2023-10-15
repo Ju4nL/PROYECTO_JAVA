@@ -12,7 +12,8 @@ public class Proveedor implements CSVConvertible{
 
     // Constructor
 
-    public Proveedor(String nombre, String telefono, String direccion, String email) {
+    public Proveedor(int id,String nombre, String telefono, String direccion, String email) {
+        this.id = id;
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
@@ -49,7 +50,7 @@ public class Proveedor implements CSVConvertible{
         return filePath;
     }
     
-    @Override
+    
     public void setId(int id){
         this.id=id;
     }

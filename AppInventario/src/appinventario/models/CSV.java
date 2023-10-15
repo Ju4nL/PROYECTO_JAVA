@@ -8,28 +8,12 @@ import java.util.List;
 public class CSV<T extends CSVConvertible> {
 
     private static final String CSV_DELIMITER = ",";
+    private Class<T> clazz;
 
-    //Funcion para crear el arraylist con objetos
-    public List<T> leerCSV(Class<T> clazz) {
-        List<T> objetos = new ArrayList<>();
-        try {
-            T instancia = clazz.newInstance();
-            List<String[]> registros = leerRegistros(instancia.getFilePath());
-             
-            for (String[] registro : registros) {
-                T objeto = clazz.newInstance();
-                //unimos el csv para crear los objetos
-                objeto.fromCSV(String.join(CSV_DELIMITER, registro));
-                
-                objetos.add(objeto);
-            }
-        } catch (InstantiationException | IllegalAccessException e) {      
-            e.printStackTrace();
-        }
-        
-        return objetos;
+    //constructor
+    public CSV(Class<T> clazz) {
+        this.clazz = clazz;
     }
-
     
     //Funcion para leer el CSV de cualquier ruta
     private List<String[]> leerRegistros(String filePath) {
@@ -46,10 +30,44 @@ public class CSV<T extends CSVConvertible> {
         return registros;
     }
 
+    private int obtenerIdMaximo() {
+        List<T> objetos = leerCSV();
+
+        int maxId = 0;
+        for (T objeto : objetos) {
+            if(objeto.getId() > maxId) {
+                maxId = objeto.getId();
+            }
+        }
+
+        return maxId;
+    }
+
     
-    public T leerPorId(Class<T> clazz, int id) {
+    //Funcion para crear el arraylist con objetos
+    public List<T> leerCSV() {
+        List<T> objetos = new ArrayList<>();
         try {
-            T instancia = clazz.newInstance();
+            T instancia = this.clazz.newInstance();
+            List<String[]> registros = leerRegistros(instancia.getFilePath());
+             
+            for (String[] registro : registros) {
+                T objeto = this.clazz.newInstance();
+                //unimos el csv para crear los objetos
+                objeto.fromCSV(String.join(CSV_DELIMITER, registro));
+                
+                objetos.add(objeto);
+            }
+        } catch (InstantiationException | IllegalAccessException e) {      
+            e.printStackTrace();
+        }
+        
+        return objetos;
+    }
+    
+    public T leerPorId(int id) {
+        try {
+            T instancia = this.clazz.newInstance();
             List<String[]> registros = leerRegistros(instancia.getFilePath());
             
             for (String[] registro : registros) {
@@ -66,9 +84,12 @@ public class CSV<T extends CSVConvertible> {
 
     
     public boolean registrar(T objeto) {
+        int id=obtenerIdMaximo()+1;
+        objeto.setId(id);
         
         try (FileWriter fw = new FileWriter(objeto.getFilePath(), true);
                 BufferedWriter bw = new BufferedWriter(fw)) {
+                
                 String nuevaLinea = objeto.toCSV();
                 bw.write(nuevaLinea);
                 bw.newLine(); // Agregar una nueva línea si es necesario
@@ -83,9 +104,9 @@ public class CSV<T extends CSVConvertible> {
     }
     
  
-    public boolean eliminarPorId(Class<T> clazz, int id) {
+    public boolean eliminarPorId( int id) {
         try {
-            T instancia = clazz.newInstance();
+            T instancia = this.clazz.newInstance();
             List<String[]> registros = leerRegistros(instancia.getFilePath());
             List<String[]> nuevosRegistros = new ArrayList<>();
 
@@ -117,9 +138,9 @@ public class CSV<T extends CSVConvertible> {
     }
 
     
-    public boolean actualizarPorId(Class<T> clazz, int id, T nuevoObjeto) {
+    public boolean actualizarPorId(int id, T nuevoObjeto) {
         try {
-            T instancia = clazz.newInstance();
+            T instancia = this.clazz.newInstance();
             List<String[]> registros = leerRegistros(instancia.getFilePath());
             List<String[]> nuevosRegistros = new ArrayList<>();
 
@@ -152,4 +173,5 @@ public class CSV<T extends CSVConvertible> {
         return false;
     }
 
+    
 }

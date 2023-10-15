@@ -16,9 +16,7 @@ public class Suministro implements CSVConvertible{
     private static final SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     
     // Constructor
-    public Suministro(int id,Producto producto, int cantidad,Date fechaCaducidad,Proveedor proveedor) {
-        
-        this.id = id; 
+    public Suministro(Producto producto, int cantidad,Date fechaCaducidad,Proveedor proveedor) {
         this.producto = producto;
         this.cantidad = cantidad;
         this.fechaCaducidad = fechaCaducidad;
@@ -53,7 +51,7 @@ public class Suministro implements CSVConvertible{
         return filePath;
     }
     
-    
+    @Override
     public void setId (int id){ 
         this.id = id;
     } 
@@ -71,7 +69,7 @@ public class Suministro implements CSVConvertible{
     }
     
     
-    // Metodos CSV
+    // Metodos CSVOld
     @Override
     public String toCSV() {
         return id + "," + producto.getId()+","+cantidad+","+formatoFecha.format(fechaCaducidad)+","+proveedor.getId();
@@ -94,9 +92,9 @@ public class Suministro implements CSVConvertible{
         
         //Creando modelos de relacion
             //Creando Objeto Producto
-            CSV<Producto> productoCSV = new CSV<>();
+            CSV<Producto> productoCSV = new CSV<>(Producto.class);
             int productoId = Integer.parseInt(data[1]);
-            Producto productoObjeto=productoCSV.leerPorId(Producto.class, productoId);
+            Producto productoObjeto=productoCSV.leerPorId( productoId);
             if (productoObjeto != null) {
                 this.producto = productoObjeto;
             } else {
@@ -104,9 +102,9 @@ public class Suministro implements CSVConvertible{
             }
 
             //Creando Objeto Proveedor por idproveedor
-            CSV<Proveedor> proveedorCSV = new CSV<>();
+            CSV<Proveedor> proveedorCSV = new CSV<>(Proveedor.class);
             int proveedorId = Integer.parseInt(data[4]);  // Índice actualizado
-            Proveedor proveedorObjeto = proveedorCSV.leerPorId(Proveedor.class, proveedorId);
+            Proveedor proveedorObjeto = proveedorCSV.leerPorId( proveedorId);
 
             if (proveedorObjeto != null) {
                 this.proveedor = proveedorObjeto;

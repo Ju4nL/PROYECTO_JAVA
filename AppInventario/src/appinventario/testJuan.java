@@ -22,14 +22,34 @@ public class testJuan {
     
     public static void main(String[] args) throws ParseException{
     
+    CSV<Producto> productoCSV = new CSV<>(Producto.class);
+    
+     
+    Producto productoObj=new Producto();
+    productoCSV.registrar(productoObj);
+    
+    List<Producto> productos=productoCSV.leerCSV();
+    for (Producto producto : productos) {
+        System.out.println(producto.getId()+producto.getNombre());
+
+    }
+    /*
+    CSVOld<Producto> productoCSV = new CSVOld<>();
+    List<Producto> productos=productoCSV.leerCSV(Producto.class);    
+    
+    int maxid=productoCSV.obtenerIdMaximo(Producto.class)    ;
+    
+    System.out.println(maxid);
+    */
+    /*
     SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     Date fecha = formatoFecha.parse("01/01/2024");
     
-    CSV<Producto> productoCSV = new CSV<>();
-    CSV<Proveedor> proveedorCSV = new CSV<>();
+    CSVOld<Producto> productoCSV = new CSVOld<>();
+    CSVOld<Proveedor> proveedorCSV = new CSVOld<>();
     List<Producto> productos=productoCSV.leerCSV(Producto.class);
     
-    CSV<Suministro> suministroCSV = new CSV<>();
+    CSVOld<Suministro> suministroCSV = new CSVOld<>();
     suministroCSV.eliminarPorId(Suministro.class,2);
     
     Suministro suministroObj= new Suministro(5,productoCSV.leerPorId(Producto.class, 3),3,fecha,proveedorCSV.leerPorId(Proveedor.class, 0));
@@ -37,9 +57,9 @@ public class testJuan {
 
     
     suministroCSV.actualizarPorId(Suministro.class,5,suministroObj);
-    
+    */
     /*
-    CSV<Suministro> suministroCSV = new CSV<>();
+    CSVOld<Suministro> suministroCSV = new CSVOld<>();
     
     Suministro nuevoSuministro=new Suministro(5,productos.get(0),5,fecha,proveedores.get(0));
     boolean action=suministroCSV.registrar(nuevoSuministro);

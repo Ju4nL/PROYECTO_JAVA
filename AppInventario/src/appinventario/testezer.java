@@ -2,7 +2,6 @@ package appinventario;
 
 import appinventario.models.CSV;
 import appinventario.models.Seguridad;
-import appinventario.models.Usuario;
 
 public class testezer {
 

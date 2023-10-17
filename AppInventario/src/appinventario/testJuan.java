@@ -2,6 +2,8 @@
 package appinventario;
 
 import appinventario.controlers.ProductoControler;
+import appinventario.controlers.ProveedorControler;
+import appinventario.controlers.SuministroControler;
 import appinventario.models.Producto;
 import appinventario.models.Proveedor;
 import appinventario.models.Suministro;
@@ -27,8 +29,22 @@ public class testJuan {
     ProductoControler productoCt=new ProductoControler();
     List<Producto> productos =productoCt.obtenerTodosProductos();
     
+    ProveedorControler proveedorCt=new ProveedorControler();
+    List<Proveedor> proveedores =proveedorCt.obtenerTodosProveedores();
+    
+    SuministroControler suministroCt=new SuministroControler();
+    List<Suministro> suministros =suministroCt.obtenerTodosSuministros();
+    
     for (Producto producto : productos) {
         System.out.println(producto.getNombre());   
+    }
+    
+    for (Proveedor proveedor : proveedores) {
+        System.out.println(proveedor.getNombre());   
+    }
+    
+    for (Suministro suministro : suministros) {
+            System.out.println(suministro.getProducto().getNombre()+"--"+suministro.getFechaCaducidad());
     }
 
    }

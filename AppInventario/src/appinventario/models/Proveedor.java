@@ -50,9 +50,22 @@ public class Proveedor implements CSVConvertible{
         return filePath;
     }
     
+    //setters
     
     public void setId(int id){
         this.id=id;
+    }
+    public void setNombre (String nombre){
+        this.nombre = nombre;
+    }
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    public void setDireccion (String direccion){
+        this.direccion = direccion;
+    }
+    public void setEmail (String email){
+        this.email = email;
     }
     
     // Metodos CSV

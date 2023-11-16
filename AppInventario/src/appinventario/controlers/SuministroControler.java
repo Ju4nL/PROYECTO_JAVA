@@ -47,5 +47,9 @@ public class SuministroControler {
     public boolean actualizarPorId(int id, Suministro suministro){
         return csv.actualizarPorId(id, suministro);
     }
+
+    public boolean registrar(Suministro nuevoSuministro) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

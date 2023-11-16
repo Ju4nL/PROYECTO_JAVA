@@ -82,4 +82,23 @@ public class Proveedor implements CSVConvertible{
         this.direccion = data[3];
         this.email = data[4];
     }
+    
+    public void mostrarTabla(){
+         System.out.printf("%-10d %-20s %-15s %-30s %-25s%n", 
+                this.getId(), 
+                this.getNombre(), 
+                this.getTelefono(), 
+                this.getDireccion(), 
+                this.getEmail());
+    }
+    
+    //Metodo statico
+    public static void cabeceras(){
+        System.out.println("");
+        System.out.printf("%-10s %-20s %-15s %-30s %-25s%n", "ID", "Nombre", "Teléfono", "Dirección", "Email");
+
+        // Línea separadora
+        for (int i = 0; i < 100; i++) System.out.print("-");
+        System.out.println();
+    }
 }

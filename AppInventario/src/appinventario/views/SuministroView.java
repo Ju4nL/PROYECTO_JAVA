@@ -5,7 +5,10 @@
 package appinventario.views;
 
 import appinventario.controlers.SuministroControler;
+import appinventario.models.Producto;
+import appinventario.models.Proveedor;
 import appinventario.models.Suministro;
+import java.util.Date;
 
 import java.util.List;
 import java.util.Scanner;
@@ -47,9 +50,29 @@ public class SuministroView {
     }
 
     private void registrarSuministro() {
-        // Aquí podrías solicitar al usuario que ingrese los datos del suministro
-        // y luego llamar al método registrarSuministro() del controlador.
+    //declarando variables. 
+    int id =0,cantidad; 
+    Date fechaCaducidad;
+        
+        System.out.println("Ingrese el ID del producto:");
+    int productoId = Integer.parseInt(scanner.nextLine());
+(int id,Producto producto, int cantidad,Date fechaCaducidad,Proveedor proveedor)
+    // Aquí puedes solicitar al usuario los demás datos del suministro, como cantidad y fecha de caducidad.
+    // Puedes usar scanner.nextLine() para leer la entrada del usuario.
+
+    // Crear un nuevo suministro con los datos ingresados por el usuario
+    Suministro nuevoSuministro = new Suministro();
+    nuevoSuministro.setProducto(new Producto(productoId)); // Asumiendo que tienes un constructor en Producto que acepta el ID.
+
+    // Completa el resto de la información del nuevoSuministro con la entrada del usuario.
+
+    // Llamar al método registrar del controlador
+    if (controlador.registrar(nuevoSuministro)) {
+        System.out.println("Suministro registrado con éxito.");
+    } else {
+        System.out.println("Error al registrar el suministro.");
     }
+}
 
     private void verSuministros() {
         List<Suministro> suministros = controlador.obtenerTodosSuministros();

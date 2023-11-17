@@ -114,12 +114,7 @@ public class Suministro implements CSVConvertible{
 
     }
     
-    
-    // Método para actualizar el stock
-    public void actualizarStock(int nuevaCantidad) {
-        this.cantidad = nuevaCantidad;
-    }
-
+   
     // Método para verificar si el suministro está en stock
     public boolean estaEnStock() {
         return cantidad > 0;
@@ -131,5 +126,26 @@ public class Suministro implements CSVConvertible{
         return fechaCaducidad.before(hoy);
     }
     
+    
+    public void mostrarTabla(){
+         System.out.printf("%-10s %-20s %-15s %-15s %-25s%n",  
+                this.getId(), 
+                this.getProveedor().getNombre(),
+                this.getProducto().getNombre(), 
+                this.getCantidad(), 
+                this.getFechaCaducidad());
+    }
+    
+    //Metodo statico
+    public static void cabeceras(){
+        System.out.println("");
+        System.out.printf("%-10s %-20s %-15s %-15s %-25s%n", "ID", "Proveedor", "Producto", "Cantidad", "Fecha Cad.");
+
+        // Línea separadora
+        for (int i = 0; i < 100; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+    }
     
 }

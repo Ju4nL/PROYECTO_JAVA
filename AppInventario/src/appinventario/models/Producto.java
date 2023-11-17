@@ -99,4 +99,26 @@ public class Producto implements CSVConvertible{
         this.precio = Double.parseDouble(data[4]);
         this.unidad_medida = data[5];
     }
+    
+     public void mostrarTabla(){
+        System.out.printf("%-10d %-20s %-15s %-30s %-25s %-20s%n",
+                this.getId(), 
+                this.getNombre(), 
+                this.getCategoria(), 
+                this.getDescripcion(), 
+                this.getPrecio(),
+                this.getUnidad_medida());
+    }
+      
+    //Metodo statico
+    public static void cabeceras(){
+        System.out.println("");
+        System.out.printf("%-10s %-20s %-15s %-30s %-25s%n", "ID", "Nombre", "Categoría", "Descripción", "Precio");
+
+        // Línea separadora
+        for (int i = 0; i < 100; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+    }
 }

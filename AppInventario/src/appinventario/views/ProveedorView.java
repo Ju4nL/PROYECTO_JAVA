@@ -40,7 +40,7 @@ public class ProveedorView{
                     verProveedorPorId();
                     break;
                 case 3:
-                    verTodosLosProveedores();
+                    verProveedores();
                     break;
                 case 4:
                     actualizarProveedor();
@@ -99,7 +99,7 @@ public class ProveedorView{
         }
     }
 
-    private void verTodosLosProveedores() {
+    private void verProveedores() {
         List<Proveedor> proveedores = controlador.obtenerTodosProveedores();
         
         // FORMATO TABLA

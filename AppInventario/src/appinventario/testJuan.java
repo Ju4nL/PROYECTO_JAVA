@@ -9,6 +9,7 @@ import appinventario.models.Proveedor;
 import appinventario.models.Suministro;
 import appinventario.models.CSV;
 import appinventario.views.ProveedorView;
+import appinventario.views.SuministroView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,6 +28,14 @@ public class testJuan {
     public static void main(String[] args) throws ParseException{
     
     ProveedorView proveedorview=new ProveedorView();
+    SuministroView suministroview=new SuministroView();
+    
+    System.out.println("+------------------------------------+");
+    System.out.println("| *********** INVENTARIO     ******* |");
+    System.out.println("+------------------------------------+");
+    System.out.println("| 1. Registrar Suministro            |");
+    System.out.println("| 2. Ver Suministro por ID           |");
     proveedorview.mostrarMenu();
+    suministroview.mostrarMenu();
 }
 }

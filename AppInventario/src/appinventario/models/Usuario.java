@@ -19,12 +19,13 @@ public class Usuario implements CSVConvertible {
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String apellido, String usuario, String password) {
+    public Usuario(int id, String nombre, String apellido, String usuario, String password, String cargo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.usuario = usuario;
         this.password = password;
+        this.cargo = cargo;
     }
 
     // Getters y Setters
@@ -85,7 +86,7 @@ public class Usuario implements CSVConvertible {
 
     @Override
     public String toCSV() {
-        return id + "," + nombre + "," + apellido + "," + usuario + "," + password;
+        return id + "," + nombre + "," + apellido + "," + usuario + "," + password + "," + cargo;
     }
 
     @Override
@@ -96,6 +97,7 @@ public class Usuario implements CSVConvertible {
         this.apellido = data[2];
         this.usuario = data[3];
         this.password = data[4];
+        this.cargo = data[5];
     }
 
     // Genera el hash SHA-256 de la contraseña proporcionada.

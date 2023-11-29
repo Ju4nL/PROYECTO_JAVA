@@ -1,5 +1,8 @@
 package appinventario.models;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Usuario implements CSVConvertible {
 
     // Atributos del modelo Usuario
@@ -62,7 +65,7 @@ public class Usuario implements CSVConvertible {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = hashPassword(password);
     }
 
     // CSV
@@ -84,6 +87,26 @@ public class Usuario implements CSVConvertible {
         this.apellido = data[2];
         this.usuario = data[3];
         this.password = data[4];
+    }
+
+    // Genera el hash SHA-256 de la contraseña proporcionada.
+    public static String hashPassword(String password) {
+        try {
+            // Algoritmo SHA-256 para generar el hash del password
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = md.digest(password.getBytes());
+
+            // Convertir los bytes a una representación hexadecimal
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedBytes) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

@@ -11,6 +11,7 @@ public class Usuario implements CSVConvertible {
     private String apellido;
     private String usuario;
     private String password;
+    private String cargo;
     // Ruta del archivo CSV
     private String filePath = System.getProperty("user.dir") + "/src/appinventario/csv/usuarios.csv";
 
@@ -66,6 +67,14 @@ public class Usuario implements CSVConvertible {
 
     public void setPassword(String password) {
         this.password = hashPassword(password);
+    }
+
+    public String getCargo() {
+        return this.cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     // CSV

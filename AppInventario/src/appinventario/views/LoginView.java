@@ -1,24 +1,25 @@
 package appinventario.views;
 
-import appinventario.controlers.UsuarioControler;
-import appinventario.models.Usuario;
-
 import java.io.Console;
 import java.util.Scanner;
 
-public class UsuarioView {
+import appinventario.controlers.UsuarioControler;
+import appinventario.models.Usuario;
 
+public class LoginView {
+    
     private UsuarioControler controlador;
     private Scanner scanner;
 
     // Constructor que inicializa el controlador de usuario y el escáner
-    public UsuarioView() {
+    public LoginView() {
         this.controlador = new UsuarioControler();
         this.scanner = new Scanner(System.in);
     }
 
     public static void main(String[] args) {
-        UsuarioView usuariovista = new UsuarioView();
+        LoginView login = new LoginView();
+        login.realizarLogin();
     }
 
     // Método para realizar el inicio de sesión
@@ -49,7 +50,8 @@ public class UsuarioView {
 
                 // Solo pa ver como vamo
                 Usuario tmp = controlador.obtenerUsuarioPorId(idUsuario);
-                System.out.println(tmp.toCSV());
+                System.out.println("¡Bienvenido, " + tmp.getNombre().toUpperCase() + " " + tmp.getApellido().toUpperCase() + "!");
+                MenuView.main(null);
             } else {
                 System.out.println("Credenciales incorrectas. Intente de nuevo.");
             }

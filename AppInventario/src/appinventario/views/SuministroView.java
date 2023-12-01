@@ -116,6 +116,9 @@ public class SuministroView {
         }
     
     }
+    
+    
+    
     private void verSuministroPorId() {
         System.out.print("Ingrese el ID del suministro: ");
         int id = scanner.nextInt();

@@ -60,4 +60,11 @@ public class Inventario {
                           .min((s1, s2) -> Integer.compare(s1.getCantidad(), s2.getCantidad()))
                           .orElse(null);
     }
+    
+    public Suministro encontrarSuministroConMayorCantidad() {
+        return suministros.stream()
+                          .max((s1, s2) -> Integer.compare(s1.getCantidad(), s2.getCantidad()))
+                          .orElse(null);
+}
+
 }

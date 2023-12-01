@@ -17,6 +17,7 @@ public class ProductoView{
     }
 
     public void mostrarMenu() {
+      
         while (true) {
             System.out.println("+------------------------------------+");
             System.out.println("| ***** GESTIÓN DE PROVEEDORES ***** |");

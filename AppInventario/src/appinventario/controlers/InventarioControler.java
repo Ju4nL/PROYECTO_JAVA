@@ -35,4 +35,8 @@ public class InventarioControler {
     public Suministro encontrarSuministroConMenorCantidad() {
         return inventario.encontrarSuministroConMenorCantidad();
     }
+    
+    public Suministro encontrarSuministroConMayorCantidad() {
+        return inventario.encontrarSuministroConMayorCantidad();
+    }
 }

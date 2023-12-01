@@ -19,6 +19,7 @@ public class UsuarioView {
 
     public static void main(String[] args) {
         UsuarioView usuariovista = new UsuarioView();
+        usuariovista.realizarLogin();
     }
 
     // Método para realizar el inicio de sesión

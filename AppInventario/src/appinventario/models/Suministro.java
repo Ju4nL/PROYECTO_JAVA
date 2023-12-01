@@ -148,4 +148,25 @@ public class Suministro implements CSVConvertible{
         System.out.println();
     }
     
+     // Método para agregar stock
+    public void agregarStock(int cantidad) {
+        if (cantidad > 0) {
+            this.cantidad += cantidad;
+        } else {
+            System.out.println("Cantidad a agregar debe ser positiva.");
+        }
+    }
+
+    // Método para reducir stock
+    public void reducirStock(int cantidad) {
+        if (cantidad > 0) {
+            if (this.cantidad >= cantidad) {
+                this.cantidad -= cantidad;
+            } else {
+                System.out.println("No hay suficiente stock para reducir.");
+            }
+        } else {
+            System.out.println("Cantidad a reducir debe ser positiva.");
+        }
+    }
 }

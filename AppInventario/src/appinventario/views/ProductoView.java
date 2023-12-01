@@ -1,53 +1,52 @@
 package appinventario.views;
 
-import appinventario.controlers.ProveedorControler;
-import appinventario.models.Proveedor;
+import appinventario.controlers.ProductoControler;
+import appinventario.models.Producto;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class ProductoView{
+public class ProductoView {
 
-    private ProveedorControler controlador;
+    private ProductoControler controlador;
     private Scanner scanner;
 
     public ProductoView() {
-        controlador = new ProveedorControler();
+        controlador = new ProductoControler();
         scanner = new Scanner(System.in);
     }
 
     public void mostrarMenu() {
-      
+
         while (true) {
             System.out.println("+------------------------------------+");
-            System.out.println("| ***** GESTIÓN DE PROVEEDORES ***** |");
+            System.out.println("| *****  GESTIÓN DE PRODUCTOS  ***** |");
             System.out.println("+------------------------------------+");
-            System.out.println("| 1. Registrar Proveedor             |");
-            System.out.println("| 2. Ver Proveedor por ID            |");
-            System.out.println("| 3. Ver todos los Proveedores       |");
-            System.out.println("| 4. Actualizar Proveedor            |");
-            System.out.println("| 5. Eliminar Proveedor              |");
+            System.out.println("| 1. Registrar Producto              |");
+            System.out.println("| 2. Ver Producto por ID             |");
+            System.out.println("| 3. Ver todos los Productos         |");
+            System.out.println("| 4. Actualizar Producto             |");
+            System.out.println("| 5. Eliminar Producto               |");
             System.out.println("| 6. Salir                           |");
             System.out.println("+------------------------------------+");
             System.out.print("| Seleccione una opción: ");
 
-
             int opcion = scanner.nextInt();
             switch (opcion) {
                 case 1:
-                    registrarProveedor();
+                    registrarProducto();
                     break;
                 case 2:
-                    verProveedorPorId();
+                    verProductoPorId();
                     break;
                 case 3:
-                    verTodosLosProveedores();
+                    verTodosLosProductos();
                     break;
                 case 4:
-                    actualizarProveedor();
+                    actualizarProducto();
                     break;
                 case 5:
-                    eliminarProveedor();
+                    eliminarProducto();
                     break;
                 case 6:
                     System.out.println("Saliendo...");
@@ -58,114 +57,123 @@ public class ProductoView{
         }
     }
 
-    private void registrarProveedor() {
-        System.out.println("Registrar nuevo Proveedor");
+    private void registrarProducto() {
+        System.out.println("Registrar nuevo Producto");
         // Declarando variables
-        String nombre, telefono, direccion, email;
-        int id=0;
+        String nombre, categoria, descripcion, unidad_medida;
+        double precio;
+        int id = 0;
         scanner.nextLine();
-        //Generando inputs
+        // Generando inputs
         System.out.print("Ingrese nombre: ");
         nombre = scanner.nextLine();
-        
-        System.out.print("Ingrese teléfono: ");
-        telefono = scanner.nextLine();
-        
-        System.out.print("Ingrese direccion: ");
-        direccion = scanner.nextLine();
-        
-        System.out.print("Ingrese email: ");
-        email = scanner.nextLine();
-        
-        //Creando objeto proveedor
-        Proveedor proveedor = new Proveedor(id,nombre,telefono,direccion,email);
-        boolean resultado = controlador.registrarProveedor(proveedor);
+
+        System.out.print("Ingrese categoria: ");
+        categoria = scanner.nextLine();
+
+        System.out.print("Ingrese descripcion: ");
+        descripcion = scanner.nextLine();
+
+        System.out.print("Ingrese unidad de medida: ");
+        unidad_medida = scanner.nextLine();
+
+        System.out.print("Ingrese precio: ");
+        precio = scanner.nextDouble();
+
+        // Creando objeto producto
+        Producto producto = new Producto(id, nombre, categoria, descripcion, precio, unidad_medida);
+        boolean resultado = controlador.registrarProducto(producto);
         if (resultado) {
-            System.out.println("Proveedor registrado con éxito.");
+            System.out.println("Producto registrado con éxito.");
         } else {
-            System.out.println("Error al registrar el proveedor.");
+            System.out.println("Error al registrar el producto.");
         }
     }
 
-    private void verProveedorPorId() {
-        System.out.print("Ingrese el ID del proveedor: ");
+    private void verProductoPorId() {
+        System.out.print("Ingrese el ID del producto: ");
         int id = scanner.nextInt();
-        Proveedor proveedor = controlador.obtenerProveedorPorId(id);
-        if (proveedor != null) {
-            proveedor.cabeceras();
-            proveedor.mostrarTabla();
-    
+        Producto producto = controlador.obtenerProductoPorId(id);
+        if (producto != null) {
+            Producto.cabeceras();
+            producto.mostrarTabla();
+
         } else {
-            System.out.println("Proveedor no encontrado.");
+            System.out.println("Producto no encontrado.");
         }
     }
 
-    private void verTodosLosProveedores() {
-        List<Proveedor> proveedores = controlador.obtenerTodosProveedores();
-        
+    private void verTodosLosProductos() {
+        List<Producto> productos = controlador.obtenerTodosProductos();
+
         // FORMATO TABLA
-        
+
         // Poniendo caebceras
-        proveedores.get(0).cabeceras();
+        // productos.get(0).cabeceras();
+        Producto.cabeceras();
 
         // Datos de los proveedores
-        for (Proveedor proveedor : proveedores) {
-            proveedor.mostrarTabla();
+        for (Producto producto : productos) {
+            producto.mostrarTabla();
         }
         System.out.println("");
-        
+
     }
 
-    
-    private void actualizarProveedor() {
-        
+    private void actualizarProducto() {
+
         // Declarando variables
-        String nombre, telefono, direccion, email;
+        String nombre, categoria, descripcion, unidad_medida;
+        double precio;
         int id;
-        //Generando inputs
-        System.out.println("Ingrese el id del proveedor para actualizar:");
-        id=scanner.nextInt();
-        
+        // Generando inputs
+        System.out.println("Ingrese el id del producto para actualizar:");
+        id = scanner.nextInt();
+
         // Print de proveedor a actualizar
-        Proveedor proveedor = controlador.obtenerProveedorPorId(id);
-        if (proveedor != null) {
-            proveedor.cabeceras();
-            proveedor.mostrarTabla();
-            
-            System.out.println("Desea actualizar todo el proveedor?");
+        Producto producto = controlador.obtenerProductoPorId(id);
+        if (producto != null) {
+            Producto.cabeceras();
+            producto.mostrarTabla();
+
+            System.out.println("Desea actualizar todo el producto?");
             System.out.println("(1=Si,2=No)");
-            int respuesta=scanner.nextInt();
-            
-            if(respuesta==1){
+            int respuesta = scanner.nextInt();
+
+            if (respuesta == 1) {
                 System.out.println("Si desea salir ingrese 1, si no omite");
-                int salir=scanner.nextInt();
-                if(salir==1){
+                int salir = scanner.nextInt();
+                if (salir == 1) {
                     System.out.println("Saliendo al Menú ");
                     return;
-                }
-                else{
+                } else {
                     System.out.print("Ingrese nombre: ");
                     nombre = scanner.nextLine();
 
-                    System.out.print("Ingrese teléfono: ");
-                    telefono = scanner.nextLine();
+                    System.out.print("Ingrese categoria: ");
+                    categoria = scanner.nextLine();
 
-                    System.out.print("Ingrese direccion: ");
-                    direccion = scanner.nextLine();
+                    System.out.print("Ingrese descripcion: ");
+                    descripcion = scanner.nextLine();
 
-                    System.out.print("Ingrese email: ");
-                    email = scanner.nextLine();
+                    System.out.print("Ingrese unidad de medida: ");
+                    unidad_medida = scanner.nextLine();
+
+                    System.out.print("Ingrese precio: ");
+                    precio = scanner.nextDouble();
                 }
-            }else{
-                
-                String atributo="";
-                nombre=proveedor.getNombre();
-                telefono=proveedor.getTelefono();
-                direccion=proveedor.getDireccion();
-                email=proveedor.getEmail();
-                
+            } else {
+
+                String atributo = "";
+                nombre = producto.getNombre();
+                categoria = producto.getCategoria();
+                descripcion = producto.getDescripcion();
+                unidad_medida = producto.getUnidad_medida();
+                precio = producto.getPrecio();
+
                 while (true) {
-                    System.out.println("Ingrese el atributo que quiere actualizar (nombre, telefono, direccion, email):");
+                    System.out
+                            .println("Ingrese el atributo que quiere actualizar (nombre, categoria, descripcion, precio, unidad):");
                     atributo = scanner.nextLine();
 
                     switch (atributo.toLowerCase()) {
@@ -173,17 +181,21 @@ public class ProductoView{
                             System.out.print("Ingrese nombre: ");
                             nombre = scanner.nextLine();
                             break;
-                        case "telefono":
+                        case "categoria":
                             System.out.print("Ingrese teléfono: ");
-                            telefono = scanner.nextLine();
+                            categoria = scanner.nextLine();
                             break;
-                        case "direccion":
+                        case "descripcion":
                             System.out.print("Ingrese direccion: ");
-                            direccion = scanner.nextLine();
+                            descripcion = scanner.nextLine();
                             break;
-                        case "email":
+                        case "unidad":
+                            System.out.print("Ingrese direccion: ");
+                            unidad_medida = scanner.nextLine();
+                            break;
+                        case "precio":
                             System.out.print("Ingrese email: ");
-                            email = scanner.nextLine();
+                            precio = scanner.nextDouble();
                             break;
                         default:
                             System.out.println("Entrada no válida. Por favor, intente de nuevo.");
@@ -194,32 +206,32 @@ public class ProductoView{
 
             }
 
-            //Creando objeto proveedor
-            Proveedor proveedorActualizar = new Proveedor(id,nombre,telefono,direccion,email);
-            boolean resultado = controlador.actualizarPorId(id,proveedorActualizar);
+            // Creando objeto proveedor
+            Producto productoActualizado = new Producto(id, nombre, categoria, descripcion, precio, unidad_medida);
+            boolean resultado = controlador.actualizarPorId(id, productoActualizado);
             if (resultado) {
-                System.out.println("Proveedor actualizado con éxito.");
-                Proveedor proveedorAct = controlador.obtenerProveedorPorId(id);
-                proveedorAct.cabeceras();
-                proveedorAct.mostrarTabla();
-                
+                System.out.println("Producto actualizado con éxito.");
+                Producto productoAct = controlador.obtenerProductoPorId(id);
+                Producto.cabeceras();
+                productoAct.mostrarTabla();
+
             } else {
-                System.out.println("Error al actualizar el proveedor.");
+                System.out.println("Error al actualizar el producto.");
             }
-            
+
         } else {
-            System.out.println("Proveedor no encontrado.");
+            System.out.println("Producto no encontrado.");
         }
     }
 
-    private void eliminarProveedor() {
-        System.out.print("Ingrese el ID del proveedor a eliminar: ");
+    private void eliminarProducto() {
+        System.out.print("Ingrese el ID del producto a eliminar: ");
         int id = scanner.nextInt();
         boolean resultado = controlador.eliminarPorId(id);
         if (resultado) {
-            System.out.println("Proveedor eliminado con éxito.");
+            System.out.println("Producto eliminado con éxito.");
         } else {
-            System.out.println("Error al eliminar el proveedor.");
+            System.out.println("Error al eliminar el producto.");
         }
     }
 

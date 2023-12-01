@@ -113,10 +113,10 @@ public class Producto implements CSVConvertible{
     //Metodo statico
     public static void cabeceras(){
         System.out.println("");
-        System.out.printf("%-10s %-20s %-15s %-30s %-25s%n", "ID", "Nombre", "Categoría", "Descripción", "Precio");
+        System.out.printf("%-10s %-20s %-15s %-30s %-25s %-15s%n", "ID", "Nombre", "Categoría", "Descripción", "Precio", "Unidad");
 
         // Línea separadora
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 115; i++) {
             System.out.print("-");
         }
         System.out.println();

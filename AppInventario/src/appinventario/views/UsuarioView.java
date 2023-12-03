@@ -10,50 +10,111 @@ public class UsuarioView {
 
     private UsuarioControler controlador;
     private Scanner scanner;
+    private Usuario user;
 
     // Constructor que inicializa el controlador de usuario y el escáner
-    public UsuarioView() {
+    public UsuarioView(Usuario user) {
         this.controlador = new UsuarioControler();
         this.scanner = new Scanner(System.in);
+        this.user = user;
     }
 
-    public static void main(String[] args) {
-        UsuarioView usuariovista = new UsuarioView();
-        usuariovista.realizarLogin();
+    public static void main(Usuario user) {
+        UsuarioView usuariovista = new UsuarioView(user);
+        usuariovista.mostrarMenu();
     }
 
-    // Método para realizar el inicio de sesión
-    private void realizarLogin() {
+    private void cleanConsola() {
+        System.out.println("");
+        System.out.println("Presione cualquier tecla para continuar");
+        scanner.nextLine();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 
-        boolean loginCorrecto = false;
-        Console console = System.console();
+    public void mostrarMenu() {
 
-        while (!loginCorrecto) {
+        while (true) {
+            System.out.println("+------------------------------------+");
+            System.out.println("| *****   GESTIÓN DE CUENTA    ***** |");
+            System.out.println("+------------------------------------+");
+            System.out.println("| 1. Mostrar información             |");
+            System.out.println("| 2. Cambiar contraseña              |");
+            System.out.println("| 3. Salir                           |");
+            System.out.println("+------------------------------------+");
+            System.out.print("| Seleccione una opción: ");
 
-            // Solicitar nombre de usuario y contraseña al usuario
-            System.out.print("Ingrese nombre de usuario: ");
-            String usuario = scanner.nextLine();
-            char[] contraseñaArray = console.readPassword("Ingrese contraseña: ");
-            String contraseña = new String(contraseñaArray);
+            int opcion = scanner.nextInt();
+            scanner.nextLine();
 
-            // Almacena el identificador del usuario validado, si no coincide devuelve -1
-            int idUsuario = controlador.validarUsuario(usuario, contraseña);
-
-            // Verificar las credenciales
-            if (idUsuario != -1) {
-                System.out.println("¡Login exitoso!");
-                loginCorrecto = true;
-
-                // Limpiar la consola
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-
-                // Solo pa ver como vamo
-                Usuario tmp = controlador.obtenerUsuarioPorId(idUsuario);
-                System.out.println(tmp.toCSV());
-            } else {
-                System.out.println("Credenciales incorrectas. Intente de nuevo.");
+            switch (opcion) {
+                case 1:
+                    mostrarInfo();
+                    cleanConsola();
+                    break;
+                case 2:
+                    cambiarContrasenia();
+                    cleanConsola();
+                    break;
+                case 3:
+                    System.out.println("Saliendo...");
+                    return;
+                default:
+                    System.out.println("Opción no válida. Por favor, intente de nuevo.");
             }
         }
     }
+
+    private void mostrarInfo() {
+        // Limpiar la consola
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        // Mostrar información del usuario
+        System.out.println("+------------------------------------+");
+        System.out.println("|      INFORMACIÓN DE USUARIO        |");
+        System.out.println("+------------------------------------+");
+        System.out.println("| Nombre: " + user.getNombre());
+        System.out.println("| Apellido: " + user.getApellido());
+        System.out.println("| Usuario: " + user.getUsuario());
+        System.out.println("| Cargo: " + user.getCargo());
+        System.out.println("+------------------------------------+");
+    }
+
+    private void cambiarContrasenia() {
+
+        Console console = System.console();
+
+        while (true) {
+            char[] contraseñaArray = console.readPassword("Por seguridad, ingrese su contraseña actual: ");
+            String contraseña = new String(contraseñaArray);
+
+            if (controlador.verificarPassword(contraseña, user)) {
+                while (true) {
+                    char[] contraseñaNuevaArray = console.readPassword("Ingrese una nueva contraseña: ");
+                    String contraseñaNueva = new String(contraseñaNuevaArray);
+                    char[] contraseñaConfirmacionArray = console
+                            .readPassword("Vuelva a escribir la nueva contraseña: ");
+                    String contraseñaConfirmacion = new String(contraseñaConfirmacionArray);
+
+                    if (contraseñaNueva.equals(contraseñaConfirmacion)) {
+                        user.setPassword(contraseñaConfirmacion);
+
+                        if (controlador.actualizarPorId(user.getId(), user)) {
+                            System.out.println("Contraseña actualizada correctamente.");
+                        } else {
+                            System.out.println("La contraseña no se pudo actualizar.");
+                        }
+                        break;
+                    } else {
+                        System.out.println("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
+                    }
+                }
+                break;
+            } else {
+                System.out.println("Contraseña incorrecta. Inténtelo de nuevo.");
+            }
+        }
+
+    }
+
 }

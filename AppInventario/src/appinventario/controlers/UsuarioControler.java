@@ -29,33 +29,27 @@ public class UsuarioControler {
         return -1;
     }
 
-    // Metodo para registrar un Usuario
-    public boolean registrarUsuario(Usuario user) {
-        List<Usuario> listUsers = obtenerTodosUsuarios();
-        // Verifica si el usuario ya está registrado en la lista de usuarios
-        for (Usuario u : listUsers) {
-            if (u.getUsuario().equals(user.getUsuario())) {
-                return false;
-            }
-        }
-        // Se obtiene el id máximo actual y se le suma 1 para asignar un
-        // nuevo id al usuario
-        int id = csv.obtenerIdMaximo() + 1;
-        user.setId(id);
-        return csv.registrar(user);
+    public List<Usuario> obtenerTodosUsuarios() {
+        return this.csv.leerCSV();
     }
 
     public Usuario obtenerUsuarioPorId(int id) {
         return csv.leerPorId(id);
     }
 
-    // Metodo para obtener la lista de todos los usuarios
-    public List<Usuario> obtenerTodosUsuarios() {
-        return this.csv.leerCSV();
+    public boolean cambiarPassword(Usuario user, String pass){
+        user.setPassword(pass);
+        csv.actualizarPorId(user.getId(), user);
+        return true;
     }
 
-    public boolean eliminarPorId(int id) {
-        return csv.eliminarPorId(id);
+    public boolean verificarPassword(String password, Usuario user) {
+        String hashedPassword = Usuario.hashPassword(password);
+        return user.getPassword().equals(hashedPassword);
+    }
+
+    public boolean actualizarPorId(int id, Usuario user) {
+        return csv.actualizarPorId(id, user);
     }
 
 }

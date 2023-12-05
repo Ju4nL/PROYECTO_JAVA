@@ -7,8 +7,10 @@ public class Usuario implements CSVConvertible {
 
     // Atributos del modelo Usuario
     private int id;
+    private boolean Admin;
     private String nombre;
     private String apellido;
+    private String telefono;
     private String usuario;
     private String password;
     private String cargo;
@@ -19,10 +21,12 @@ public class Usuario implements CSVConvertible {
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String apellido, String usuario, String password, String cargo) {
+    public Usuario(int id, boolean Admin, String nombre, String apellido, String telefono, String usuario, String password, String cargo) {
         this.id = id;
+        this.Admin = Admin;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.telefono = telefono;
         this.usuario = usuario;
         this.password = password;
         this.cargo = cargo;
@@ -36,6 +40,14 @@ public class Usuario implements CSVConvertible {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isAdmin() {
+        return this.Admin;
+    }
+
+    public void setAdmin(boolean Admin) {
+        this.Admin = Admin;
     }
 
     public String getNombre() {
@@ -52,6 +64,14 @@ public class Usuario implements CSVConvertible {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public String getTelefono() {
+        return this.telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getUsuario() {
@@ -86,18 +106,41 @@ public class Usuario implements CSVConvertible {
 
     @Override
     public String toCSV() {
-        return id + "," + nombre + "," + apellido + "," + usuario + "," + password + "," + cargo;
+        return id + "," + Admin + "," + nombre + "," + apellido + "," + telefono + "," + usuario + "," + password + "," + cargo;
     }
 
     @Override
     public void fromCSV(String csvData) {
         String[] data = csvData.split(",");
         this.id = Integer.parseInt(data[0]);
-        this.nombre = data[1];
-        this.apellido = data[2];
-        this.usuario = data[3];
-        this.password = data[4];
-        this.cargo = data[5];
+        this.Admin = Boolean.parseBoolean(data[1]);
+        this.nombre = data[2];
+        this.apellido = data[3];
+        this.telefono = data[4];
+        this.usuario = data[5];
+        this.password = data[6];
+        this.cargo = data[7];
+    }
+
+    public static void cabeceras(){
+        System.out.println("");
+        System.out.printf("%-10s %-15s %-20s %-20s %-25s %-25s%n", "ID", "Admin", "Nombre", "Apellido", "Teléfono", "Usuario");
+
+        // Línea separadora
+        for (int i = 0; i < 115; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+    }
+
+    public void mostrarTabla(){
+        System.out.printf("%-10d %-15s %-20s %-20s %-25s %-25s%n",
+                this.getId(), 
+                this.isAdmin(), 
+                this.getNombre(), 
+                this.getApellido(), 
+                this.getTelefono(),
+                this.getUsuario());
     }
 
     // Genera el hash SHA-256 de la contraseña proporcionada.

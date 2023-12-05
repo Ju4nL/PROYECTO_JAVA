@@ -2,6 +2,7 @@ package appinventario.views;
 
 import appinventario.controlers.UsuarioControler;
 import appinventario.models.Usuario;
+import appinventario.utils.Utilidades;
 
 import java.io.Console;
 import java.util.Scanner;
@@ -24,14 +25,6 @@ public class UsuarioView {
         usuariovista.mostrarMenu();
     }
 
-    private void cleanConsola() {
-        System.out.println("");
-        System.out.println("Presione cualquier tecla para continuar");
-        scanner.nextLine();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
     public void mostrarMenu() {
 
         while (true) {
@@ -50,11 +43,11 @@ public class UsuarioView {
             switch (opcion) {
                 case 1:
                     mostrarInfo();
-                    cleanConsola();
+                    Utilidades.cleanConsola();
                     break;
                 case 2:
                     cambiarContrasenia();
-                    cleanConsola();
+                    Utilidades.cleanConsola();
                     break;
                 case 3:
                     System.out.println("Saliendo...");
@@ -75,6 +68,7 @@ public class UsuarioView {
         System.out.println("+------------------------------------+");
         System.out.println("| Nombre: " + user.getNombre());
         System.out.println("| Apellido: " + user.getApellido());
+        System.out.println("| Telefono: " + user.getTelefono());
         System.out.println("| Usuario: " + user.getUsuario());
         System.out.println("| Cargo: " + user.getCargo());
         System.out.println("+------------------------------------+");

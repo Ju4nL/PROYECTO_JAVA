@@ -2,7 +2,6 @@ package appinventario.controlers;
 
 import java.util.List;
 import appinventario.models.CSV;
-import appinventario.models.Producto;
 import appinventario.models.Usuario;
 
 public class AdminControler {

@@ -29,6 +29,19 @@ public class LoginView {
         boolean loginCorrecto = false;
         Console console = System.console();
 
+        // Nombre del programa en ASCII
+        System.out.println("");
+        System.out.println("");
+        System.out.println("      >>                         >=>                                             >=>");
+        System.out.println("     >>=>                        >=>                                             >=>                        >>");
+        System.out.println("    >> >=>     >=> >=>  >=> >=>  >=> >==>>==>  >=>     >=>   >==>    >==>>==>  >=>>==>    >=> >=>  >> >==>        >=>");
+        System.out.println("   >=>  >=>    >>   >=> >>   >=> >=>  >=>  >=>  >=>   >=>  >>   >=>   >=>  >=>   >=>    >=>   >=>   >=>    >=>  >=>  >=>");
+        System.out.println("  >=====>>=>   >>   >=> >>   >=> >=>  >=>  >=>   >=> >=>   >>===>>=>  >=>  >=>   >=>   >=>    >=>   >=>    >=> >=>    >=>");
+        System.out.println(" >=>      >=>  >=> >=>  >=> >=>  >=>  >=>  >=>    >=>=>    >>         >=>  >=>   >=>    >=>   >=>   >=>    >=>  >=>  >=>");
+        System.out.println(">=>        >=> >=>      >=>      >=> >==>  >=>     >=>      >====>   >==>  >=>    >=>    >==>>>==> >==>    >=>    >=>");
+        System.out.println("               >=>      >=>");
+        System.out.println("");
+
         while (!loginCorrecto) {
 
             // Solicitar nombre de usuario y contraseña al usuario

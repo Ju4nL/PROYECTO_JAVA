@@ -28,7 +28,7 @@ public class Usuario implements CSVConvertible {
         this.apellido = apellido;
         this.telefono = telefono;
         this.usuario = usuario;
-        this.password = password;
+        this.password = hashPassword(password);
         this.cargo = cargo;
     }
 

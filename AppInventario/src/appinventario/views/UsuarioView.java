@@ -43,11 +43,11 @@ public class UsuarioView {
             switch (opcion) {
                 case 1:
                     mostrarInfo();
-                    Utilidades.cleanConsola();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 2:
                     cambiarContrasenia();
-                    Utilidades.cleanConsola();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 3:
                     System.out.println("Saliendo...");
@@ -59,9 +59,7 @@ public class UsuarioView {
     }
 
     private void mostrarInfo() {
-        // Limpiar la consola
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        Utilidades.cleanConsola();
         // Mostrar información del usuario
         System.out.println("+------------------------------------+");
         System.out.println("|      INFORMACIÓN DE USUARIO        |");
@@ -76,36 +74,38 @@ public class UsuarioView {
 
     private void cambiarContrasenia() {
 
+        Utilidades.cleanConsola();
+        System.out.println(" CAMBIAR CONTRASEÑA");
         Console console = System.console();
 
         while (true) {
-            char[] contraseñaArray = console.readPassword("Por seguridad, ingrese su contraseña actual: ");
+            char[] contraseñaArray = console.readPassword(" -> Por seguridad, ingrese su contraseña actual: ");
             String contraseña = new String(contraseñaArray);
 
             if (controlador.verificarPassword(contraseña, user)) {
                 while (true) {
-                    char[] contraseñaNuevaArray = console.readPassword("Ingrese una nueva contraseña: ");
+                    char[] contraseñaNuevaArray = console.readPassword(" -> Ingrese una nueva contraseña: ");
                     String contraseñaNueva = new String(contraseñaNuevaArray);
                     char[] contraseñaConfirmacionArray = console
-                            .readPassword("Vuelva a escribir la nueva contraseña: ");
+                            .readPassword(" -> Vuelva a escribir la nueva contraseña: ");
                     String contraseñaConfirmacion = new String(contraseñaConfirmacionArray);
 
                     if (contraseñaNueva.equals(contraseñaConfirmacion)) {
                         user.setPassword(contraseñaConfirmacion);
 
                         if (controlador.actualizarPorId(user.getId(), user)) {
-                            System.out.println("Contraseña actualizada correctamente.");
+                            System.out.println(" Contraseña actualizada correctamente.");
                         } else {
-                            System.out.println("La contraseña no se pudo actualizar.");
+                            System.out.println(" La contraseña no se pudo actualizar.");
                         }
                         break;
                     } else {
-                        System.out.println("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
+                        System.out.println(" Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
                     }
                 }
                 break;
             } else {
-                System.out.println("Contraseña incorrecta. Inténtelo de nuevo.");
+                System.out.println(" Contraseña incorrecta. Inténtelo de nuevo.");
             }
         }
 

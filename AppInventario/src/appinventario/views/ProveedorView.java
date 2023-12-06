@@ -2,6 +2,7 @@ package appinventario.views;
 
 import appinventario.controlers.ProveedorControler;
 import appinventario.models.Proveedor;
+import appinventario.utils.Utilidades;
 
 import java.util.List;
 import java.util.Scanner;
@@ -54,6 +55,7 @@ public class ProveedorView{
                 default:
                     System.out.println("Opción no válida. Por favor, intente de nuevo.");
             }
+            Utilidades.cleanConsolaPausa();
         }
     }
 

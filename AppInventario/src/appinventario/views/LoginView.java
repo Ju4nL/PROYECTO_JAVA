@@ -2,6 +2,8 @@ package appinventario.views;
 
 import appinventario.controlers.UsuarioControler;
 import appinventario.models.Usuario;
+import appinventario.utils.Utilidades;
+
 import java.io.Console;
 import java.util.Scanner;
 
@@ -23,8 +25,7 @@ public class LoginView {
     // Método para realizar el inicio de sesión
     private void realizarLogin() {
 
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        Utilidades.cleanConsola();
 
         boolean loginCorrecto = false;
         Console console = System.console();
@@ -59,8 +60,7 @@ public class LoginView {
                 loginCorrecto = true;
 
                 // Limpiar la consola
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
+                Utilidades.cleanConsola();
 
                 // Solo pa ver como vamo
                 Usuario user = controlador.obtenerUsuarioPorId(idUsuario);

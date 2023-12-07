@@ -95,7 +95,6 @@ public class SuministroView {
         // Generando inputs
         // PRODUCTO
         Producto producto = inputProducto();
-
         // PROVEEDORES
         Proveedor proveedor = inputProveedor();
 
@@ -270,10 +269,10 @@ public class SuministroView {
 
     private Producto inputProducto() {
         // PRODUCTO
-        List<Suministro> suministros = controladorSuministro.obtenerTodosSuministros();
+        List<Producto> productos = controladorProducto.obtenerTodosProductos();
         Suministro.cabeceras();
-        for (Suministro suministro : suministros) {
-            suministro.mostrarTabla();
+        for (Producto producto : productos) {
+            producto.mostrarTabla();
         }
         System.out.println("");
         System.out.print(" -> Ingrese el idproducto: ");

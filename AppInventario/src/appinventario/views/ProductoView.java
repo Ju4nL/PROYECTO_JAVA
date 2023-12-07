@@ -36,18 +36,23 @@ public class ProductoView {
             switch (opcion) {
                 case 1:
                     registrarProducto();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 2:
                     verProductoPorId();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 3:
                     verTodosLosProductos();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 4:
                     actualizarProducto();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 5:
                     eliminarProducto();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 6:
                     System.out.println("Saliendo...");
@@ -55,7 +60,6 @@ public class ProductoView {
                 default:
                     System.out.println("Opción no válida. Por favor, intente de nuevo.");
             }
-            Utilidades.cleanConsolaPausa();
         }
     }
 
@@ -112,11 +116,6 @@ public class ProductoView {
         Utilidades.cleanConsola();
         System.out.println(" LISTA DE PRODUCTOS");
         List<Producto> productos = controlador.obtenerTodosProductos();
-
-        // FORMATO TABLA
-
-        // Poniendo caebceras
-        // productos.get(0).cabeceras();
         Producto.cabeceras();
 
         // Datos de los proveedores
@@ -147,10 +146,11 @@ public class ProductoView {
             scanner.nextLine();
 
             if (respuesta == 1) {
-                System.out.println(" Si desea salir ingrese 1, si no omite");
-                int salir = scanner.nextInt();
-                if (salir == 1) {
-                    System.out.println("Saliendo al Menú ");
+                System.out.print("Presione 1 para salir, o Enter para continuar: ");
+                String input = scanner.nextLine();
+
+                if (input.equals("1")) {
+                    System.out.print("Saliendo al Menú");
                     return;
                 } else {
                     System.out.print(" -> Ingrese nombre: ");

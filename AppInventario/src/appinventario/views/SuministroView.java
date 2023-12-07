@@ -10,6 +10,8 @@ import appinventario.controlers.SuministroControler;
 import appinventario.models.Producto;
 import appinventario.models.Proveedor;
 import appinventario.models.Suministro;
+import appinventario.utils.Utilidades;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,11 +32,11 @@ public class SuministroView {
     private ProductoControler controladorProducto;
     private Scanner scanner;
     private static final SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-    
-    public SuministroView(){
+
+    public SuministroView() {
         controladorSuministro = new SuministroControler();
         controladorProveedor = new ProveedorControler();
-        controladorProducto= new ProductoControler();
+        controladorProducto = new ProductoControler();
         this.scanner = new Scanner(System.in);
     }
 
@@ -51,251 +53,249 @@ public class SuministroView {
             System.out.println("| 6. Salir                           |");
             System.out.println("+------------------------------------+");
             System.out.print("| Seleccione una opción: ");
-            
+
             int opcion = scanner.nextInt();
             switch (opcion) {
                 case 1:
                     registrarSuministro();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 2:
                     verSuministroPorId();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 3:
                     verSuministros();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 4:
                     actualizarSuministro();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 5:
                     eliminarSuministro();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 6:
-                    System.exit(0);
+                    System.out.println("Saliendo...");
+                    return;
                 default:
                     System.out.println("Opción no válida. Intente nuevamente.");
             }
         }
     }
 
-    private void registrarSuministro()  {
-        
-        System.out.println("Registrar nuevo Proveedor");
+    private void registrarSuministro() {
+        Utilidades.cleanConsola();
+        System.out.println(" REGISTRAR NUEVO SUMINISTRO");
         // Declarando variables
-        int id =0,cantidad; 
+        int id = 0, cantidad;
         Date fechaCaducidad;
 
-        //Generando inputs
-        //PRODUCTO
-        Producto producto =inputProducto();
- 
-        //PROVEEDORES
+        // Generando inputs
+        // PRODUCTO
+        Producto producto = inputProducto();
+
+        // PROVEEDORES
         Proveedor proveedor = inputProveedor();
 
-        
-         
-        System.out.print("Ingrese cantidad de productos: ");
+        System.out.print(" -> Ingrese cantidad de productos: ");
         cantidad = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.print("Ingrese la fecha de caducidad: (dd/MM/yyyy)");
-        String fechaString= scanner.nextLine();
+        System.out.print(" -> Ingrese la fecha de caducidad (dd/MM/yyyy): ");
+        String fechaString = scanner.nextLine();
 
         try {
-            fechaCaducidad=formatoFecha.parse(fechaString);
-            //Creando objeto proveedor
-            Suministro nuevoSuministro = new Suministro(id,producto,cantidad,fechaCaducidad,proveedor);
+            fechaCaducidad = formatoFecha.parse(fechaString);
+            // Creando objeto proveedor
+            Suministro nuevoSuministro = new Suministro(id, producto, cantidad, fechaCaducidad, proveedor);
 
             boolean resultado = controladorSuministro.registrarSuministro(nuevoSuministro);
             if (resultado) {
-                System.out.println("Suministro registrado con éxito.");
+                System.out.println(" Suministro registrado con éxito.");
             } else {
-                System.out.println("Error al registrar el Suministro.");
+                System.out.println(" Error al registrar el Suministro.");
             }
         } catch (ParseException ex) {
             Logger.getLogger(SuministroView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
-    
-    
-    
+
     private void verSuministroPorId() {
-        System.out.print("Ingrese el ID del suministro: ");
+        Utilidades.cleanConsola();
+        System.out.println(" VER SUMINISTRO POR ID");
+        System.out.print(" -> Ingrese el ID del suministro: ");
         int id = scanner.nextInt();
         Suministro suministro = controladorSuministro.obtenerSuministroPorId(id);
         if (suministro != null) {
-            suministro.cabeceras();
+            Suministro.cabeceras();
             suministro.mostrarTabla();
-    
+
         } else {
-            System.out.println("Suministro no encontrado.");
+            System.out.println(" Suministro no encontrado.");
         }
     }
-    
-    
+
     private void verSuministros() {
+        Utilidades.cleanConsola();
+        System.out.println(" LISTA DE SUMINISTROS");
         List<Suministro> suministros = controladorSuministro.obtenerTodosSuministros();
-        // Poniendo caebceras
-        suministros.get(0).cabeceras();
-        
+        Suministro.cabeceras();
+
         for (Suministro suministro : suministros) {
             suministro.mostrarTabla();
         }
-        System.out.println("");
     }
 
-    
     private void actualizarSuministro() {
-        
+        verSuministros();
+        System.out.println("");
         // Declarando variables
-        int id,cantidad; 
+        int id, cantidad;
         Date fechaCaducidad = null;
         Proveedor proveedor;
         Producto producto;
         String fechaString = null;
-        //Generando inputs
-        System.out.println("Ingrese el id del suministro para actualizar:");
-        id=scanner.nextInt();
-        
+        // Generando inputs
+        System.out.print(" -> Ingrese el id del suministro para actualizar: ");
+        id = scanner.nextInt();
+
         // Print de proveedor a actualizar
         Suministro suministro = controladorSuministro.obtenerSuministroPorId(id);
         if (suministro != null) {
-            suministro.cabeceras();
+            Suministro.cabeceras();
             suministro.mostrarTabla();
-            
-            System.out.println("Desea actualizar todo el suministro?");
-            System.out.println("(1=Si,2=No)");
-            int respuesta=scanner.nextInt();
-            
-            if(respuesta==1){
-                System.out.println("Si desea salir ingrese 1, si no omite");
-                int salir=scanner.nextInt();
-                if(salir==1){
-                    System.out.println("Saliendo al Menú ");
+            System.out.println("");
+            System.out.print(" ¿Desea actualizar todo el suministro?  (Sí = 1 | No = 2): ");
+            int respuesta = scanner.nextInt();
+            scanner.nextLine();
+
+            if (respuesta == 1) {
+                System.out.print("Presione 1 para salir, o Enter para continuar: ");
+                String input = scanner.nextLine();
+
+                if (input.equals("1")) {
+                    System.out.print("Saliendo al Menú");
                     return;
-                }
-                else{
-                    producto = inputProducto(); 
+                } else {
+                    producto = inputProducto();
                     proveedor = inputProveedor();
 
-                    System.out.print("Ingrese cantidad de productos: ");
+                    System.out.print(" -> Ingrese cantidad de productos: ");
                     cantidad = scanner.nextInt();
                     scanner.nextLine();
 
-                    System.out.print("Ingrese la fecha de caducidad: (dd/MM/yyyy)");
-                    fechaString= scanner.nextLine();
+                    System.out.print(" -> Ingrese la fecha de caducidad (dd/MM/yyyy): ");
+                    fechaString = scanner.nextLine();
                 }
-            }else{
-                
-                String atributo="";
-                proveedor=suministro.getProveedor();
-                producto=suministro.getProducto();
-                cantidad=suministro.getCantidad();
-                fechaCaducidad=suministro.getFechaCaducidad();
-                
-                
+            } else {
+
+                String atributo = "";
+                proveedor = suministro.getProveedor();
+                producto = suministro.getProducto();
+                cantidad = suministro.getCantidad();
+                fechaCaducidad = suministro.getFechaCaducidad();
+
                 while (true) {
-                    System.out.println("Ingrese el atributo que quiere actualizar (producto,proveedor, cantidad, fechaCaducidad):");
+                    System.out.print(
+                            " -> Ingrese el atributo que quiere actualizar (producto,proveedor, cantidad, fechaCaducidad): ");
                     atributo = scanner.nextLine();
 
                     switch (atributo.toLowerCase()) {
                         case "producto":
-                               producto =inputProducto();                   
+                            producto = inputProducto();
                             break;
-                            
+
                         case "proveedor":
-                                proveedor = inputProveedor();
+                            proveedor = inputProveedor();
                             break;
                         case "cantidad":
-                            System.out.print("Ingrese cantidad de productos: ");
+                            System.out.print(" -> Ingrese cantidad de productos: ");
                             cantidad = scanner.nextInt();
                             scanner.nextLine();
 
                             break;
                         case "fechaCaducidad":
-                            System.out.print("Ingrese la fecha de caducidad: (dd/MM/yyyy)");
-                            fechaString= scanner.nextLine();
+                            System.out.print(" -> Ingrese la fecha de caducidad (dd/MM/yyyy): ");
+                            fechaString = scanner.nextLine();
                             break;
                         default:
-                            System.out.println("Entrada no válida. Por favor, intente de nuevo.");
+                            System.out.println(" Entrada no válida. Por favor, intente de nuevo.");
                             continue;
                     }
                     break; // Salir del bucle si la entrada es válida
                 }
 
             }
-            
-            try {
-                    if (fechaCaducidad instanceof Date) {
-                        
-                    } else {
-                        fechaCaducidad=formatoFecha.parse(fechaString);
-                    }
-                    
-                    //Creando objeto proveedor
-                    Suministro suministroActualizar = new Suministro(id,producto,cantidad,fechaCaducidad,proveedor);
 
-                    boolean resultado = controladorSuministro.actualizarPorId(id,suministroActualizar);
-                    if (resultado) {
-                        System.out.println("Suministro actualizado con éxito.");
-                    } else {
-                        System.out.println("Error al actualizar el Suministro.");
-                    }
-                } catch (ParseException ex) {
-                    Logger.getLogger(SuministroView.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                if (fechaCaducidad instanceof Date) {
+
+                } else {
+                    fechaCaducidad = formatoFecha.parse(fechaString);
                 }
-            
+
+                // Creando objeto proveedor
+                Suministro suministroActualizar = new Suministro(id, producto, cantidad, fechaCaducidad, proveedor);
+
+                boolean resultado = controladorSuministro.actualizarPorId(id, suministroActualizar);
+                if (resultado) {
+                    System.out.println(" Suministro actualizado con éxito.");
+                } else {
+                    System.out.println(" Error al actualizar el Suministro.");
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(SuministroView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         } else {
-            System.out.println("Proveedor no encontrado.");
+            System.out.println(" Suministro no encontrado.");
         }
     }
-    
-    
-    
+
     private void eliminarSuministro() {
-        System.out.print("Ingrese el ID del suministro a eliminar: ");
+        verSuministros();
+        System.out.println("");
+        System.out.print(" -> Ingrese el ID del suministro a eliminar: ");
         int id = scanner.nextInt();
         boolean resultado = controladorSuministro.eliminarPorId(id);
         if (resultado) {
-            System.out.println("Suministro eliminado con éxito.");
+            System.out.println(" Suministro eliminado con éxito.");
         } else {
-            System.out.println("Error al eliminar el suministro.");
+            System.out.println(" Error al eliminar el suministro.");
         }
-    }    
-    
-    
-    private Producto inputProducto(){
-        //PRODUCTO
-        System.out.print("Ingrese el idproducto: ");
-        //Mostrando productos
-            List<Producto> productos = controladorProducto.obtenerTodosProductos();
-            productos.get(0).cabeceras();
-            for (Producto producto : productos) {
-                producto.mostrarTabla();
-            }
-            System.out.println("");
-        //fin productos
-        int idproducto=scanner.nextInt();
+    }
+
+    private Producto inputProducto() {
+        // PRODUCTO
+        List<Suministro> suministros = controladorSuministro.obtenerTodosSuministros();
+        Suministro.cabeceras();
+        for (Suministro suministro : suministros) {
+            suministro.mostrarTabla();
+        }
+        System.out.println("");
+        System.out.print(" -> Ingrese el idproducto: ");
+        int idproducto = scanner.nextInt();
         Producto inputproducto = controladorProducto.obtenerProductoPorId(idproducto);
         return inputproducto;
     }
-    
-    private Proveedor inputProveedor(){
-        System.out.print("Ingrese el idproveedor: ");
-            //Mostrando proveedores
-                List<Proveedor> proveedores = controladorProveedor.obtenerTodosProveedores();
-                proveedores.get(0).cabeceras();
-                for (Proveedor proveedor : proveedores) {
-                    proveedor.mostrarTabla();
-                }
-                System.out.println("");
-            //fin proveedores
-            int idproveedor=scanner.nextInt();
-            Proveedor inputproveedor = controladorProveedor.obtenerProveedorPorId(idproveedor);
+
+    private Proveedor inputProveedor() {
+        //PROVEEDOR
+        List<Proveedor> proveedores = controladorProveedor.obtenerTodosProveedores();
+        Proveedor.cabeceras();
+        for (Proveedor proveedor : proveedores) {
+            proveedor.mostrarTabla();
+        }
+        System.out.println("");
+        System.out.print(" -> Ingrese el idproveedor: ");
+        int idproveedor = scanner.nextInt();
+        Proveedor inputproveedor = controladorProveedor.obtenerProveedorPorId(idproveedor);
         return inputproveedor;
     }
-    
-    
+
     public static void main(String[] args) {
         SuministroView vista = new SuministroView();
         vista.mostrarMenu();

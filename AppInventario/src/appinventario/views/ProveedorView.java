@@ -7,7 +7,7 @@ import appinventario.utils.Utilidades;
 import java.util.List;
 import java.util.Scanner;
 
-public class ProveedorView{
+public class ProveedorView {
 
     private ProveedorControler controlador;
     private Scanner scanner;
@@ -31,23 +31,27 @@ public class ProveedorView{
             System.out.println("+------------------------------------+");
             System.out.print("| Seleccione una opción: ");
 
-
             int opcion = scanner.nextInt();
             switch (opcion) {
                 case 1:
                     registrarProveedor();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 2:
                     verProveedorPorId();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 3:
                     verProveedores();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 4:
                     actualizarProveedor();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 5:
                     eliminarProveedor();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 6:
                     System.out.println("Saliendo...");
@@ -55,139 +59,137 @@ public class ProveedorView{
                 default:
                     System.out.println("Opción no válida. Por favor, intente de nuevo.");
             }
-            Utilidades.cleanConsolaPausa();
         }
     }
 
     private void registrarProveedor() {
-        System.out.println("Registrar nuevo Proveedor");
+        Utilidades.cleanConsola();
+        System.out.println(" REGISTRAR NUEVO PROVEEDOR");
         // Declarando variables
         String nombre, telefono, direccion, email;
-        int id=0;
+        int id = 0;
         scanner.nextLine();
-        //Generando inputs
-        System.out.print("Ingrese nombre: ");
+        // Generando inputs
+        System.out.print(" -> Ingrese nombre: ");
         nombre = scanner.nextLine();
-        
-        System.out.print("Ingrese teléfono: ");
+
+        System.out.print(" -> Ingrese teléfono: ");
         telefono = scanner.nextLine();
-        
-        System.out.print("Ingrese direccion: ");
+
+        System.out.print(" -> Ingrese direccion: ");
         direccion = scanner.nextLine();
-        
-        System.out.print("Ingrese email: ");
+
+        System.out.print(" ->Ingrese email: ");
         email = scanner.nextLine();
-        
-        //Creando objeto proveedor
-        Proveedor proveedor = new Proveedor(id,nombre,telefono,direccion,email);
+
+        // Creando objeto proveedor
+        Proveedor proveedor = new Proveedor(id, nombre, telefono, direccion, email);
         boolean resultado = controlador.registrarProveedor(proveedor);
         if (resultado) {
-            System.out.println("Proveedor registrado con éxito.");
+            System.out.println(" Proveedor registrado con éxito.");
         } else {
-            System.out.println("Error al registrar el proveedor.");
+            System.out.println(" Error al registrar el proveedor.");
         }
     }
 
     private void verProveedorPorId() {
-        System.out.print("Ingrese el ID del proveedor: ");
+        Utilidades.cleanConsola();
+        System.out.println(" VER PROVEEDOR POR ID");
+        System.out.print(" -> Ingrese el ID del proveedor: ");
         int id = scanner.nextInt();
         Proveedor proveedor = controlador.obtenerProveedorPorId(id);
         if (proveedor != null) {
-            proveedor.cabeceras();
+            Proveedor.cabeceras();
             proveedor.mostrarTabla();
-    
+
         } else {
-            System.out.println("Proveedor no encontrado.");
+            System.out.println(" Proveedor no encontrado.");
         }
     }
 
     private void verProveedores() {
+        Utilidades.cleanConsola();
+        System.out.println(" LISTA DE PROVEEDORES");
         List<Proveedor> proveedores = controlador.obtenerTodosProveedores();
-        
-        // FORMATO TABLA
-        
-        // Poniendo caebceras
-        proveedores.get(0).cabeceras();
+        Proveedor.cabeceras();
 
         // Datos de los proveedores
         for (Proveedor proveedor : proveedores) {
             proveedor.mostrarTabla();
         }
-        System.out.println("");
-        
     }
 
-    
     private void actualizarProveedor() {
-        
+        verProveedores();
+        System.out.println("");
         // Declarando variables
         String nombre, telefono, direccion, email;
         int id;
-        //Generando inputs
-        System.out.println("Ingrese el id del proveedor para actualizar:");
-        id=scanner.nextInt();
-        
+        // Generando inputs
+        System.out.print(" -> Ingrese el id del proveedor para actualizar: ");
+        id = scanner.nextInt();
+
         // Print de proveedor a actualizar
         Proveedor proveedor = controlador.obtenerProveedorPorId(id);
         if (proveedor != null) {
-            proveedor.cabeceras();
+            Proveedor.cabeceras();
             proveedor.mostrarTabla();
-            
-            System.out.println("Desea actualizar todo el proveedor?");
-            System.out.println("(1=Si,2=No)");
-            int respuesta=scanner.nextInt();
-            
-            if(respuesta==1){
-                System.out.println("Si desea salir ingrese 1, si no omite");
-                int salir=scanner.nextInt();
-                if(salir==1){
-                    System.out.println("Saliendo al Menú ");
+            System.out.println("");
+            System.out.print(" ¿Desea actualizar todo el proveedor?  (Sí = 1 | No = 2): ");
+            int respuesta = scanner.nextInt();
+            scanner.nextLine();
+
+            if (respuesta == 1) {
+                System.out.print("Presione 1 para salir, o Enter para continuar: ");
+                String input = scanner.nextLine();
+
+                if (input.equals("1")) {
+                    System.out.print("Saliendo al Menú");
                     return;
-                }
-                else{
-                    System.out.print("Ingrese nombre: ");
+                } else {
+                    System.out.print(" -> Ingrese nombre: ");
                     nombre = scanner.nextLine();
 
-                    System.out.print("Ingrese teléfono: ");
+                    System.out.print(" -> Ingrese teléfono: ");
                     telefono = scanner.nextLine();
 
-                    System.out.print("Ingrese direccion: ");
+                    System.out.print(" -> Ingrese direccion: ");
                     direccion = scanner.nextLine();
 
-                    System.out.print("Ingrese email: ");
+                    System.out.print(" -> Ingrese email: ");
                     email = scanner.nextLine();
                 }
-            }else{
-                
-                String atributo="";
-                nombre=proveedor.getNombre();
-                telefono=proveedor.getTelefono();
-                direccion=proveedor.getDireccion();
-                email=proveedor.getEmail();
-                
+            } else {
+
+                String atributo = "";
+                nombre = proveedor.getNombre();
+                telefono = proveedor.getTelefono();
+                direccion = proveedor.getDireccion();
+                email = proveedor.getEmail();
+
                 while (true) {
-                    System.out.println("Ingrese el atributo que quiere actualizar (nombre, telefono, direccion, email):");
+                    System.out.print(" -> Ingrese el atributo que quiere actualizar (nombre, telefono, direccion, email):");
                     atributo = scanner.nextLine();
 
                     switch (atributo.toLowerCase()) {
                         case "nombre":
-                            System.out.print("Ingrese nombre: ");
+                            System.out.print(" -> Ingrese nombre: ");
                             nombre = scanner.nextLine();
                             break;
                         case "telefono":
-                            System.out.print("Ingrese teléfono: ");
+                            System.out.print(" -> Ingrese teléfono: ");
                             telefono = scanner.nextLine();
                             break;
                         case "direccion":
-                            System.out.print("Ingrese direccion: ");
+                            System.out.print(" -> Ingrese direccion: ");
                             direccion = scanner.nextLine();
                             break;
                         case "email":
-                            System.out.print("Ingrese email: ");
+                            System.out.print(" -> Ingrese email: ");
                             email = scanner.nextLine();
                             break;
                         default:
-                            System.out.println("Entrada no válida. Por favor, intente de nuevo.");
+                            System.out.println(" Entrada no válida. Por favor, intente de nuevo.");
                             continue;
                     }
                     break; // Salir del bucle si la entrada es válida
@@ -195,32 +197,34 @@ public class ProveedorView{
 
             }
 
-            //Creando objeto proveedor
-            Proveedor proveedorActualizar = new Proveedor(id,nombre,telefono,direccion,email);
-            boolean resultado = controlador.actualizarPorId(id,proveedorActualizar);
+            // Creando objeto proveedor
+            Proveedor proveedorActualizar = new Proveedor(id, nombre, telefono, direccion, email);
+            boolean resultado = controlador.actualizarPorId(id, proveedorActualizar);
             if (resultado) {
-                System.out.println("Proveedor actualizado con éxito.");
+                System.out.println(" Proveedor actualizado con éxito.");
                 Proveedor proveedorAct = controlador.obtenerProveedorPorId(id);
-                proveedorAct.cabeceras();
+                Proveedor.cabeceras();
                 proveedorAct.mostrarTabla();
-                
+
             } else {
-                System.out.println("Error al actualizar el proveedor.");
+                System.out.println(" Error al actualizar el proveedor.");
             }
-            
+
         } else {
-            System.out.println("Proveedor no encontrado.");
+            System.out.println(" Proveedor no encontrado.");
         }
     }
 
     private void eliminarProveedor() {
-        System.out.print("Ingrese el ID del proveedor a eliminar: ");
+        verProveedores();
+        System.out.println("");
+        System.out.print(" -> Ingrese el ID del proveedor a eliminar: ");
         int id = scanner.nextInt();
         boolean resultado = controlador.eliminarPorId(id);
         if (resultado) {
-            System.out.println("Proveedor eliminado con éxito.");
+            System.out.println(" Proveedor eliminado con éxito.");
         } else {
-            System.out.println("Error al eliminar el proveedor.");
+            System.out.println(" Error al eliminar el proveedor.");
         }
     }
 

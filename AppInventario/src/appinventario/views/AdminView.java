@@ -42,15 +42,19 @@ public class AdminView {
             switch (opcion) {
                 case 1:
                     verListaUsuarios();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 2:
                     registrarUsuario();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 3:
                     eliminarUsuario();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 4:
-                    // Insertar código para actualizar usuario
+                    actualizarUsuario();
+                    Utilidades.cleanConsolaPausa();
                     break;
                 case 5:
                     System.out.println("Saliendo...");
@@ -59,7 +63,6 @@ public class AdminView {
                     System.out.println("Opción no válida. Por favor, intente de nuevo.");
                     break;
             }
-            Utilidades.cleanConsolaPausa();
         }
     }
 
@@ -80,7 +83,6 @@ public class AdminView {
         // Declarando variables
         String nombre, apellido, telefono, usuario, contraseña, cargo;
         boolean isAdmin = false;
-        int Admin;
         int id = 0;
         // Generando inputs
         System.out.print(" -> Ingrese nombre: ");
@@ -102,7 +104,7 @@ public class AdminView {
         cargo = scanner.nextLine();
 
         System.out.print(" -> ¿Es una cuenta de administración? (Sí = 1 | No = 2): ");
-        Admin = scanner.nextInt();
+        int Admin = scanner.nextInt();
 
         if(Admin==1) { isAdmin = true; }
 
@@ -127,6 +129,123 @@ public class AdminView {
         } else {
             System.out.println("Error al eliminar el usuario.");
         }
+    }
+
+    private void actualizarUsuario() {
+        verListaUsuarios();
+        System.out.println("");
+        // Declarando variables
+        String nombre, apellido, telefono, usuario, contraseña, cargo;
+        boolean isAdmin = false;
+        System.out.print(" -> Ingrese el id del usuario para actualizar: ");
+        int id  = scanner.nextInt();
+
+        Usuario user = controlador.obtenerUsuarioPorId(id);
+        if (user != null) {
+            Usuario.cabeceras();
+            user.mostrarTabla();
+            System.out.println("");
+            System.out.print(" ¿Desea actualizar todo el usuario? (Sí = 1 | No = 2): ");
+            int respuesta = scanner.nextInt();
+            scanner.nextLine();
+
+            if (respuesta == 1) {
+                System.out.print("Presione 1 para salir, o Enter para continuar: ");
+                String input = scanner.nextLine();
+
+                if (input.equals("1")) {
+                    System.out.print("Saluendo al Menú");
+                    return;
+                } else {
+                    System.out.print(" -> Ingrese nombre: ");
+                    nombre = scanner.nextLine();
+
+                    System.out.print(" -> Ingrese apellido: ");
+                    apellido = scanner.nextLine();
+
+                    System.out.print(" -> Ingrese telefono: ");
+                    telefono = scanner.nextLine();
+
+                    System.out.print(" -> Ingrese usuario: ");
+                    usuario = scanner.nextLine();
+
+                    System.out.print(" -> Ingrese contraseña: ");
+                    contraseña = scanner.nextLine();
+
+                    System.out.print(" -> Ingrese cargo: ");
+                    cargo = scanner.nextLine();
+
+                    System.out.print(" -> ¿Es una cuenta de administración? (Sí = 1 | No = 2): ");
+                    int admin = scanner.nextInt();
+
+                    if(admin==1) { isAdmin = true; } else { isAdmin = false; }
+                }
+            } else {
+                String atributo = "";
+                nombre = user.getNombre();
+                apellido = user.getApellido();
+                telefono = user.getTelefono();
+                usuario = user.getUsuario();
+                contraseña = user.getPassword();
+                cargo = user.getCargo();
+                isAdmin = user.isAdmin();
+
+                while (true) {
+                    System.out.print(" Ingrese el atributo que quiere actualizar (nombre, apellido, telefono, usuario, contraseña, cargo, admin): ");
+                    atributo = scanner.nextLine();
+
+                    switch (atributo.toLowerCase()) {
+                        case "nombre":
+                            System.out.print(" -> Ingrese nombre: ");
+                            nombre = scanner.nextLine();
+                            break;
+                        case "apellido":
+                            System.out.print(" -> Ingrese apellido: ");
+                            apellido = scanner.nextLine();
+                            break;
+                        case "telefono":
+                            System.out.print(" -> Ingrese telefono: ");
+                            telefono = scanner.nextLine();
+                            break;
+                        case "usuario":
+                            System.out.print(" -> Ingrese usuario: ");
+                            usuario = scanner.nextLine();
+                            break;
+                        case "contraseña":
+                            System.out.print(" -> Ingrese contraseña: ");
+                            contraseña = scanner.nextLine();
+                            break;
+                        case "cargo":
+                            System.out.print(" -> Ingrese cargo: ");
+                            cargo = scanner.nextLine();
+                            break;
+                        case "admin":
+                            System.out.print(" -> Es cuenta administrador? (Sí = 1 | No = 2): ");
+                            int admin = scanner.nextInt();
+                            if (admin == 1) { isAdmin = true; } else { isAdmin = false; }
+                            break;
+                        default:
+                            System.out.println(" Entrada no válida. Por favor, intente de nuevo.");
+                            continue;
+                    }
+                    break;
+                }
+            }
+
+            Usuario userUpdate = new Usuario(id, isAdmin, nombre, apellido, telefono, usuario, contraseña, cargo);
+            boolean resultado = controlador.actualizarPorId(id, userUpdate);
+            if (resultado) {
+                System.out.println(" Usuario actualizado con éxito.");
+                Usuario userUp = controlador.obtenerUsuarioPorId(id);
+                Usuario.cabeceras();
+                userUp.mostrarTabla();
+            } else {
+                System.out.println(" Error al actualizar el usuario");
+            }
+        } else {
+            System.out.println(" Usuario no encontrado.");
+        }
+
     }
 
     

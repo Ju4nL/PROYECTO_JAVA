@@ -58,14 +58,16 @@ public class ProductoView {
                     System.out.println("Saliendo...");
                     return;
                 default:
-                    System.out.println("Opción no válida. Por favor, intente de nuevo.");
+                    Utilidades.imprimirMensaje("Opción no válida. Por favor, intente de nuevo.", "error");
+                    Utilidades.cleanConsolaPausa();
             }
         }
     }
 
     private void registrarProducto() {
         Utilidades.cleanConsola();
-        System.out.println(" REGISTRAR NUEVO PRODUCTO");
+        System.out.println(" ====> REGISTRAR NUEVO PRODUCTO");
+        System.out.println("");
         // Declarando variables
         String nombre, categoria, descripcion, unidad_medida;
         double precio;
@@ -91,34 +93,33 @@ public class ProductoView {
         Producto producto = new Producto(id, nombre, categoria, descripcion, precio, unidad_medida);
         boolean resultado = controlador.registrarProducto(producto);
         if (resultado) {
-            System.out.println(" Producto registrado con éxito.");
+            Utilidades.imprimirMensaje(" Producto registrado con éxito.", "success");
         } else {
-            System.out.println(" Error al registrar el producto.");
+            Utilidades.imprimirMensaje(" Error al registrar el producto.", "error");
         }
     }
 
     private void verProductoPorId() {
         Utilidades.cleanConsola();
-        System.out.println(" VER PRODUCTO POR ID");
+        System.out.println(" ====> VER PRODUCTO POR ID");
+        System.out.println("");
         System.out.print(" -> Ingrese el ID del producto: ");
         int id = scanner.nextInt();
         Producto producto = controlador.obtenerProductoPorId(id);
         if (producto != null) {
             Producto.cabeceras();
             producto.mostrarTabla();
-
         } else {
-            System.out.println(" Producto no encontrado.");
+            Utilidades.imprimirMensaje(" Producto no encontrado.", "error");
         }
     }
 
     private void verTodosLosProductos() {
         Utilidades.cleanConsola();
-        System.out.println(" LISTA DE PRODUCTOS");
+        System.out.println(" ====> LISTA DE PRODUCTOS");
         List<Producto> productos = controlador.obtenerTodosProductos();
         Producto.cabeceras();
-
-        // Datos de los proveedores
+        // Datos de los productos
         for (Producto producto : productos) {
             producto.mostrarTabla();
         }
@@ -135,7 +136,7 @@ public class ProductoView {
         System.out.print(" -> Ingrese el id del producto para actualizar: ");
         id = scanner.nextInt();
 
-        // Print de proveedor a actualizar
+        // Print de producto a actualizar
         Producto producto = controlador.obtenerProductoPorId(id);
         if (producto != null) {
             Producto.cabeceras();
@@ -203,29 +204,26 @@ public class ProductoView {
                             precio = scanner.nextDouble();
                             break;
                         default:
-                            System.out.println(" Entrada no válida. Por favor, intente de nuevo.");
+                            Utilidades.imprimirMensaje(" Entrada no válida. Por favor, intente de nuevo.", "error");
                             continue;
                     }
                     break; // Salir del bucle si la entrada es válida
                 }
-
             }
 
             // Creando objeto proveedor
             Producto productoActualizado = new Producto(id, nombre, categoria, descripcion, precio, unidad_medida);
             boolean resultado = controlador.actualizarPorId(id, productoActualizado);
             if (resultado) {
-                System.out.println(" Producto actualizado con éxito.");
+                Utilidades.imprimirMensaje(" Producto actualizado con éxito.", "success");
                 Producto productoAct = controlador.obtenerProductoPorId(id);
                 Producto.cabeceras();
                 productoAct.mostrarTabla();
-
             } else {
-                System.out.println(" Error al actualizar el producto.");
+                Utilidades.imprimirMensaje(" Error al actualizar el producto.", "error");
             }
-
         } else {
-            System.out.println(" Producto no encontrado.");
+            Utilidades.imprimirMensaje(" Producto no encontrado.", "error");
         }
     }
 
@@ -236,13 +234,14 @@ public class ProductoView {
         int id = scanner.nextInt();
         boolean resultado = controlador.eliminarPorId(id);
         if (resultado) {
-            System.out.println(" Producto eliminado con éxito.");
+            Utilidades.imprimirMensaje(" Producto eliminado con éxito.", "success");
         } else {
-            System.out.println(" Error al eliminar el producto.");
+            Utilidades.imprimirMensaje(" Error al eliminar el producto.", "error");
         }
     }
 
     public static void main(String[] args) {
+        Utilidades.cleanConsola();
         ProductoView vista = new ProductoView();
         vista.mostrarMenu();
     }

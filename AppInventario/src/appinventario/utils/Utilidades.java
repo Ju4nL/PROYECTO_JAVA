@@ -19,4 +19,23 @@ public class Utilidades {
         System.out.println("");
     }
 
+    public static void imprimirMensaje(String mensaje, String tipo) {
+        String colorCode = "";
+        switch (tipo.toLowerCase()) {
+            case "success":
+                colorCode = "\u001B[32m"; // Verde para éxito
+                break;
+            case "warning":
+                colorCode = "\u001B[33m"; // Amarillo para advertencia
+                break;
+            case "error":
+                colorCode = "\u001B[31m"; // Rojo para error
+                break;
+            default:
+                colorCode = "\u001B[0m"; // Color predeterminado
+                break;
+        }
+        System.out.println(colorCode + mensaje + "\u001B[0m"); // Restablecer el color después del mensaje
+    }
+
 }

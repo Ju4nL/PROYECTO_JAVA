@@ -17,13 +17,14 @@ public class AdminView {
         this.scanner = new Scanner(System.in);
     }
 
-    public static void main(String[] args) {
+    public static void main(Usuario user) {
+        if(!user.isAdmin()) { return; }
+        Utilidades.cleanConsola();
         AdminView adminview = new AdminView();
         adminview.mostrarMenu();
     }
 
     private void mostrarMenu() {
-
         while (true) {
             System.out.println("+------------------------------------+");
             System.out.println("| **  ADMINISTRACION DE USUARIOS  ** |");
@@ -60,7 +61,8 @@ public class AdminView {
                     System.out.println("Saliendo...");
                     return;
                 default:
-                    System.out.println("Opción no válida. Por favor, intente de nuevo.");
+                    Utilidades.imprimirMensaje("Opción no válida. Por favor, intente de nuevo.", "error");
+                    Utilidades.cleanConsolaPausa();
                     break;
             }
         }
@@ -68,7 +70,7 @@ public class AdminView {
 
     private void verListaUsuarios() {
         Utilidades.cleanConsola();
-        System.out.println(" LISTA DE USUARIOS");
+        System.out.println(" ====> LISTA DE USUARIOS");
         List<Usuario> listUser = controlador.obtenerTodosUsuarios();
         Usuario.cabeceras();
         for (Usuario user : listUser) {
@@ -77,9 +79,9 @@ public class AdminView {
     }
 
     private void registrarUsuario() {
-
         Utilidades.cleanConsola();
-        System.out.println(" REGISTRAR NUEVO USUARIO");
+        System.out.println(" ====> REGISTRAR NUEVO USUARIO");
+        System.out.println("");
         // Declarando variables
         String nombre, apellido, telefono, usuario, contraseña, cargo;
         boolean isAdmin = false;
@@ -108,13 +110,13 @@ public class AdminView {
 
         if(Admin==1) { isAdmin = true; }
 
-        // Creando objeto producto
+        // Creando objeto usuario
         Usuario newuser = new Usuario(id,isAdmin, nombre, apellido, telefono, usuario, contraseña, cargo);
         boolean resultado = controlador.registrarUsuario(newuser);
         if (resultado) {
-            System.out.println(" Usuario registrado con éxito.");
+            Utilidades.imprimirMensaje(" Usuario registrado con éxito.", "success");
         } else {
-            System.out.println(" Error al registrar el usuario.");
+            Utilidades.imprimirMensaje(" Error al registrar el usuario.", "error");
         }
     }
 
@@ -125,9 +127,9 @@ public class AdminView {
         int id = scanner.nextInt();
         boolean resultado = controlador.eliminarPorId(id);
         if (resultado) {
-            System.out.println("Usuario eliminado con éxito.");
+            Utilidades.imprimirMensaje(" Usuario eliminado con éxito.", "success");
         } else {
-            System.out.println("Error al eliminar el usuario.");
+            Utilidades.imprimirMensaje(" Error al eliminar el usuario.", "error");
         }
     }
 
@@ -150,11 +152,11 @@ public class AdminView {
             scanner.nextLine();
 
             if (respuesta == 1) {
-                System.out.print("Presione 1 para salir, o Enter para continuar: ");
+                System.out.print(" Presione 1 para salir, o Enter para continuar: ");
                 String input = scanner.nextLine();
 
                 if (input.equals("1")) {
-                    System.out.print("Saluendo al Menú");
+                    System.out.print("Saliendo al Menú");
                     return;
                 } else {
                     System.out.print(" -> Ingrese nombre: ");
@@ -225,7 +227,7 @@ public class AdminView {
                             if (admin == 1) { isAdmin = true; } else { isAdmin = false; }
                             break;
                         default:
-                            System.out.println(" Entrada no válida. Por favor, intente de nuevo.");
+                            Utilidades.imprimirMensaje(" Entrada no válida. Por favor, intente de nuevo.", "error");
                             continue;
                     }
                     break;
@@ -235,18 +237,15 @@ public class AdminView {
             Usuario userUpdate = new Usuario(id, isAdmin, nombre, apellido, telefono, usuario, contraseña, cargo);
             boolean resultado = controlador.actualizarPorId(id, userUpdate);
             if (resultado) {
-                System.out.println(" Usuario actualizado con éxito.");
+                Utilidades.imprimirMensaje(" Usuario actualizado con éxito.", "success");
                 Usuario userUp = controlador.obtenerUsuarioPorId(id);
                 Usuario.cabeceras();
                 userUp.mostrarTabla();
             } else {
-                System.out.println(" Error al actualizar el usuario");
+                Utilidades.imprimirMensaje(" Error al actualizar el usuario", "error");
             }
         } else {
-            System.out.println(" Usuario no encontrado.");
+            Utilidades.imprimirMensaje(" Usuario no encontrado", "error");
         }
-
     }
-
-    
 }

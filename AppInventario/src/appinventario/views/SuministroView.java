@@ -80,14 +80,16 @@ public class SuministroView {
                     System.out.println("Saliendo...");
                     return;
                 default:
-                    System.out.println("Opción no válida. Intente nuevamente.");
+                    Utilidades.imprimirMensaje("Opción no válida. Intente nuevamente.", "error");
+                    Utilidades.cleanConsolaPausa();
             }
         }
     }
 
-    private void registrarSuministro() {
+    public void registrarSuministro() {
         Utilidades.cleanConsola();
-        System.out.println(" REGISTRAR NUEVO SUMINISTRO");
+        System.out.println(" ====> REGISTRAR NUEVO SUMINISTRO");
+        System.out.println("");
         // Declarando variables
         int id = 0, cantidad;
         Date fechaCaducidad;
@@ -112,9 +114,9 @@ public class SuministroView {
 
             boolean resultado = controladorSuministro.registrarSuministro(nuevoSuministro);
             if (resultado) {
-                System.out.println(" Suministro registrado con éxito.");
+                Utilidades.imprimirMensaje(" Suministro registrado con éxito.", "success");
             } else {
-                System.out.println(" Error al registrar el Suministro.");
+                Utilidades.imprimirMensaje(" Error al registrar el Suministro.", "error");
             }
         } catch (ParseException ex) {
             Logger.getLogger(SuministroView.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,33 +124,32 @@ public class SuministroView {
 
     }
 
-    private void verSuministroPorId() {
+    public void verSuministroPorId() {
         Utilidades.cleanConsola();
-        System.out.println(" VER SUMINISTRO POR ID");
+        System.out.println(" ====> VER SUMINISTRO POR ID");
+        System.out.println("");
         System.out.print(" -> Ingrese el ID del suministro: ");
         int id = scanner.nextInt();
         Suministro suministro = controladorSuministro.obtenerSuministroPorId(id);
         if (suministro != null) {
             Suministro.cabeceras();
             suministro.mostrarTabla();
-
         } else {
-            System.out.println(" Suministro no encontrado.");
+            Utilidades.imprimirMensaje(" Suministro no encontrado.", "error");
         }
     }
 
-    private void verSuministros() {
+    public void verSuministros() {
         Utilidades.cleanConsola();
-        System.out.println(" LISTA DE SUMINISTROS");
+        System.out.println(" ====> LISTA DE SUMINISTROS");
         List<Suministro> suministros = controladorSuministro.obtenerTodosSuministros();
         Suministro.cabeceras();
-
         for (Suministro suministro : suministros) {
             suministro.mostrarTabla();
         }
     }
 
-    private void actualizarSuministro() {
+    public void actualizarSuministro() {
         verSuministros();
         System.out.println("");
         // Declarando variables
@@ -214,19 +215,17 @@ public class SuministroView {
                             System.out.print(" -> Ingrese cantidad de productos: ");
                             cantidad = scanner.nextInt();
                             scanner.nextLine();
-
                             break;
                         case "fechaCaducidad":
                             System.out.print(" -> Ingrese la fecha de caducidad (dd/MM/yyyy): ");
                             fechaString = scanner.nextLine();
                             break;
                         default:
-                            System.out.println(" Entrada no válida. Por favor, intente de nuevo.");
+                            Utilidades.imprimirMensaje(" Entrada no válida. Por favor, intente de nuevo.", "error");
                             continue;
                     }
                     break; // Salir del bucle si la entrada es válida
                 }
-
             }
 
             try {
@@ -236,34 +235,33 @@ public class SuministroView {
                     fechaCaducidad = formatoFecha.parse(fechaString);
                 }
 
-                // Creando objeto proveedor
+                // Creando objeto suministro
                 Suministro suministroActualizar = new Suministro(id, producto, cantidad, fechaCaducidad, proveedor);
 
                 boolean resultado = controladorSuministro.actualizarPorId(id, suministroActualizar);
                 if (resultado) {
-                    System.out.println(" Suministro actualizado con éxito.");
+                    Utilidades.imprimirMensaje(" Suministro actualizado con éxito.", "success");
                 } else {
-                    System.out.println(" Error al actualizar el Suministro.");
+                    Utilidades.imprimirMensaje(" Error al actualizar el Suministro.", "error");
                 }
             } catch (ParseException ex) {
                 Logger.getLogger(SuministroView.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         } else {
-            System.out.println(" Suministro no encontrado.");
+            Utilidades.imprimirMensaje(" Suministro no encontrado.", "error");
         }
     }
 
-    private void eliminarSuministro() {
+    public void eliminarSuministro() {
         verSuministros();
         System.out.println("");
         System.out.print(" -> Ingrese el ID del suministro a eliminar: ");
         int id = scanner.nextInt();
         boolean resultado = controladorSuministro.eliminarPorId(id);
         if (resultado) {
-            System.out.println(" Suministro eliminado con éxito.");
+            Utilidades.imprimirMensaje(" Suministro eliminado con éxito.", "success");
         } else {
-            System.out.println(" Error al eliminar el suministro.");
+            Utilidades.imprimirMensaje(" Error al eliminar el suministro.", "error");
         }
     }
 
@@ -296,6 +294,7 @@ public class SuministroView {
     }
 
     public static void main(String[] args) {
+        Utilidades.cleanConsola();
         SuministroView vista = new SuministroView();
         vista.mostrarMenu();
     }

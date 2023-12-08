@@ -21,6 +21,7 @@ public class UsuarioView {
     }
 
     public static void main(Usuario user) {
+        Utilidades.cleanConsola();
         UsuarioView usuariovista = new UsuarioView(user);
         usuariovista.mostrarMenu();
     }
@@ -53,7 +54,8 @@ public class UsuarioView {
                     System.out.println("Saliendo...");
                     return;
                 default:
-                    System.out.println("Opción no válida. Por favor, intente de nuevo.");
+                    Utilidades.imprimirMensaje("Opción no válida. Por favor, intente de nuevo.", "error");
+                    Utilidades.cleanConsolaPausa();
             }
         }
     }
@@ -75,7 +77,8 @@ public class UsuarioView {
     private void cambiarContrasenia() {
 
         Utilidades.cleanConsola();
-        System.out.println(" CAMBIAR CONTRASEÑA");
+        System.out.println(" ====> CAMBIAR CONTRASEÑA");
+        System.out.println("");
         Console console = System.console();
 
         while (true) {
@@ -94,18 +97,18 @@ public class UsuarioView {
                         user.setPassword(contraseñaConfirmacion);
 
                         if (controlador.actualizarPorId(user.getId(), user)) {
-                            System.out.println(" Contraseña actualizada correctamente.");
+                            Utilidades.imprimirMensaje(" Contraseña actualizada correctamente.", "success");
                         } else {
-                            System.out.println(" La contraseña no se pudo actualizar.");
+                            Utilidades.imprimirMensaje(" La contraseña no se pudo actualizar.", "error");
                         }
                         break;
                     } else {
-                        System.out.println(" Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
+                        Utilidades.imprimirMensaje(" Las contraseñas no coinciden. Por favor, inténtelo de nuevo.", "error");
                     }
                 }
                 break;
             } else {
-                System.out.println(" Contraseña incorrecta. Inténtelo de nuevo.");
+                Utilidades.imprimirMensaje(" Contraseña incorrecta. Inténtelo de nuevo.", "error");
             }
         }
 

@@ -57,14 +57,16 @@ public class ProveedorView {
                     System.out.println("Saliendo...");
                     return;
                 default:
-                    System.out.println("Opción no válida. Por favor, intente de nuevo.");
+                    Utilidades.imprimirMensaje("Opción no válida. Por favor, intente de nuevo.", "error");
+                    Utilidades.cleanConsolaPausa();
             }
         }
     }
 
     private void registrarProveedor() {
         Utilidades.cleanConsola();
-        System.out.println(" REGISTRAR NUEVO PROVEEDOR");
+        System.out.println(" ====> REGISTRAR NUEVO PROVEEDOR");
+        System.out.println("");
         // Declarando variables
         String nombre, telefono, direccion, email;
         int id = 0;
@@ -86,33 +88,32 @@ public class ProveedorView {
         Proveedor proveedor = new Proveedor(id, nombre, telefono, direccion, email);
         boolean resultado = controlador.registrarProveedor(proveedor);
         if (resultado) {
-            System.out.println(" Proveedor registrado con éxito.");
+            Utilidades.imprimirMensaje(" Proveedor registrado con éxito.", "success");
         } else {
-            System.out.println(" Error al registrar el proveedor.");
+            Utilidades.imprimirMensaje(" Error al registrar el proveedor.", "error");
         }
     }
 
     private void verProveedorPorId() {
         Utilidades.cleanConsola();
-        System.out.println(" VER PROVEEDOR POR ID");
+        System.out.println(" ====> VER PROVEEDOR POR ID");
+        System.out.println("");
         System.out.print(" -> Ingrese el ID del proveedor: ");
         int id = scanner.nextInt();
         Proveedor proveedor = controlador.obtenerProveedorPorId(id);
         if (proveedor != null) {
             Proveedor.cabeceras();
             proveedor.mostrarTabla();
-
         } else {
-            System.out.println(" Proveedor no encontrado.");
+            Utilidades.imprimirMensaje(" Proveedor no encontrado.", "error");
         }
     }
 
     private void verProveedores() {
         Utilidades.cleanConsola();
-        System.out.println(" LISTA DE PROVEEDORES");
+        System.out.println(" ====> LISTA DE PROVEEDORES");
         List<Proveedor> proveedores = controlador.obtenerTodosProveedores();
         Proveedor.cabeceras();
-
         // Datos de los proveedores
         for (Proveedor proveedor : proveedores) {
             proveedor.mostrarTabla();
@@ -189,29 +190,26 @@ public class ProveedorView {
                             email = scanner.nextLine();
                             break;
                         default:
-                            System.out.println(" Entrada no válida. Por favor, intente de nuevo.");
+                            Utilidades.imprimirMensaje(" Entrada no válida. Por favor, intente de nuevo.", "error");
                             continue;
                     }
                     break; // Salir del bucle si la entrada es válida
                 }
-
             }
 
             // Creando objeto proveedor
             Proveedor proveedorActualizar = new Proveedor(id, nombre, telefono, direccion, email);
             boolean resultado = controlador.actualizarPorId(id, proveedorActualizar);
             if (resultado) {
-                System.out.println(" Proveedor actualizado con éxito.");
+                Utilidades.imprimirMensaje(" Proveedor actualizado con éxito.", "success");
                 Proveedor proveedorAct = controlador.obtenerProveedorPorId(id);
                 Proveedor.cabeceras();
                 proveedorAct.mostrarTabla();
-
             } else {
-                System.out.println(" Error al actualizar el proveedor.");
+                Utilidades.imprimirMensaje(" Error al actualizar el proveedor.", "error");
             }
-
         } else {
-            System.out.println(" Proveedor no encontrado.");
+            Utilidades.imprimirMensaje(" Proveedor no encontrado.", "error");
         }
     }
 
@@ -222,13 +220,14 @@ public class ProveedorView {
         int id = scanner.nextInt();
         boolean resultado = controlador.eliminarPorId(id);
         if (resultado) {
-            System.out.println(" Proveedor eliminado con éxito.");
+            Utilidades.imprimirMensaje(" Proveedor eliminado con éxito.", "success");
         } else {
-            System.out.println(" Error al eliminar el proveedor.");
+            Utilidades.imprimirMensaje(" Error al eliminar el proveedor.", "error");
         }
     }
 
     public static void main(String[] args) {
+        Utilidades.cleanConsola();
         ProveedorView vista = new ProveedorView();
         vista.mostrarMenu();
     }

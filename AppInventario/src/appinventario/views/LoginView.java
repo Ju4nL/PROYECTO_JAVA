@@ -56,18 +56,26 @@ public class LoginView {
 
             // Verificar las credenciales
             if (idUsuario != -1) {
-                System.out.println("¡Login exitoso!");
                 loginCorrecto = true;
-
-                // Limpiar la consola
                 Utilidades.cleanConsola();
-
                 // Solo pa ver como vamo
                 Usuario user = controlador.obtenerUsuarioPorId(idUsuario);
-                UsuarioView.main(user);
+                MenuView.main(user);
             } else {
-                System.out.println("Credenciales incorrectas. Intente de nuevo.");
+                Utilidades.imprimirMensaje("Credenciales incorrectas. Intente de nuevo.", "error");
+                clearAndMoveUp();
             }
         }
+    }
+
+    private void clearAndMoveUp() {
+        System.out.println("");
+        System.out.print("Presione ENTER para continuar ");
+        scanner.nextLine();
+        System.out.print("\033[1A\033[K");
+        System.out.print("\033[1A\033[K");
+        System.out.print("\033[1A\033[K");
+        System.out.print("\033[1A\033[K");
+        System.out.print("\033[1A\033[K");
     }
 }

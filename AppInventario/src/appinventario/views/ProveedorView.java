@@ -72,25 +72,25 @@ public class ProveedorView {
         int id = 0;
         scanner.nextLine();
         // Generando inputs
-        System.out.print(" -> Ingrese nombre: ");
+        Utilidades.solicitarInput("-> Ingrese nombre: ");
         nombre = scanner.nextLine();
 
-        System.out.print(" -> Ingrese teléfono: ");
+        Utilidades.solicitarInput("-> Ingrese teléfono: ");
         telefono = scanner.nextLine();
 
-        System.out.print(" -> Ingrese direccion: ");
+        Utilidades.solicitarInput("-> Ingrese direccion: ");
         direccion = scanner.nextLine();
 
-        System.out.print(" ->Ingrese email: ");
+        Utilidades.solicitarInput("-> Ingrese email: ");
         email = scanner.nextLine();
 
         // Creando objeto proveedor
         Proveedor proveedor = new Proveedor(id, nombre, telefono, direccion, email);
         boolean resultado = controlador.registrarProveedor(proveedor);
         if (resultado) {
-            Utilidades.imprimirMensaje(" Proveedor registrado con éxito.", "success");
+            Utilidades.imprimirMensaje("Proveedor registrado con éxito.", "success");
         } else {
-            Utilidades.imprimirMensaje(" Error al registrar el proveedor.", "error");
+            Utilidades.imprimirMensaje("Error al registrar el proveedor.", "error");
         }
     }
 
@@ -98,14 +98,14 @@ public class ProveedorView {
         Utilidades.cleanConsola();
         System.out.println(" ====> VER PROVEEDOR POR ID");
         System.out.println("");
-        System.out.print(" -> Ingrese el ID del proveedor: ");
+        Utilidades.solicitarInput("-> Ingrese el ID del proveedor: ");
         int id = scanner.nextInt();
         Proveedor proveedor = controlador.obtenerProveedorPorId(id);
         if (proveedor != null) {
             Proveedor.cabeceras();
             proveedor.mostrarTabla();
         } else {
-            Utilidades.imprimirMensaje(" Proveedor no encontrado.", "error");
+            Utilidades.imprimirMensaje("Proveedor no encontrado.", "error");
         }
     }
 
@@ -127,7 +127,7 @@ public class ProveedorView {
         String nombre, telefono, direccion, email;
         int id;
         // Generando inputs
-        System.out.print(" -> Ingrese el id del proveedor para actualizar: ");
+        Utilidades.solicitarInput("-> Ingrese el id del proveedor para actualizar: ");
         id = scanner.nextInt();
 
         // Print de proveedor a actualizar
@@ -136,28 +136,28 @@ public class ProveedorView {
             Proveedor.cabeceras();
             proveedor.mostrarTabla();
             System.out.println("");
-            System.out.print(" ¿Desea actualizar todo el proveedor?  (Sí = 1 | No = 2): ");
+            Utilidades.solicitarInput("¿Desea actualizar todo el proveedor?  (Sí = 1 | No = 2): ", 0);
             int respuesta = scanner.nextInt();
             scanner.nextLine();
 
             if (respuesta == 1) {
-                System.out.print("Presione 1 para salir, o Enter para continuar: ");
+                Utilidades.solicitarInput("Presione 1 para salir, o Enter para continuar: ", 0);
                 String input = scanner.nextLine();
 
                 if (input.equals("1")) {
                     System.out.print("Saliendo al Menú");
                     return;
                 } else {
-                    System.out.print(" -> Ingrese nombre: ");
+                    Utilidades.solicitarInput("-> Ingrese nombre: ");
                     nombre = scanner.nextLine();
 
-                    System.out.print(" -> Ingrese teléfono: ");
+                    Utilidades.solicitarInput("-> Ingrese teléfono: ");
                     telefono = scanner.nextLine();
 
-                    System.out.print(" -> Ingrese direccion: ");
+                    Utilidades.solicitarInput("-> Ingrese direccion: ");
                     direccion = scanner.nextLine();
 
-                    System.out.print(" -> Ingrese email: ");
+                    Utilidades.solicitarInput("-> Ingrese email: ");
                     email = scanner.nextLine();
                 }
             } else {
@@ -169,28 +169,28 @@ public class ProveedorView {
                 email = proveedor.getEmail();
 
                 while (true) {
-                    System.out.print(" -> Ingrese el atributo que quiere actualizar (nombre, telefono, direccion, email):");
+                    Utilidades.solicitarInput("-> Ingrese el atributo que quiere actualizar (nombre, telefono, direccion, email):");
                     atributo = scanner.nextLine();
 
                     switch (atributo.toLowerCase()) {
                         case "nombre":
-                            System.out.print(" -> Ingrese nombre: ");
+                            Utilidades.solicitarInput("-> Ingrese nombre: ");
                             nombre = scanner.nextLine();
                             break;
                         case "telefono":
-                            System.out.print(" -> Ingrese teléfono: ");
+                            Utilidades.solicitarInput("-> Ingrese teléfono: ");
                             telefono = scanner.nextLine();
                             break;
                         case "direccion":
-                            System.out.print(" -> Ingrese direccion: ");
+                            Utilidades.solicitarInput("-> Ingrese direccion: ");
                             direccion = scanner.nextLine();
                             break;
                         case "email":
-                            System.out.print(" -> Ingrese email: ");
+                            Utilidades.solicitarInput("-> Ingrese email: ");
                             email = scanner.nextLine();
                             break;
                         default:
-                            Utilidades.imprimirMensaje(" Entrada no válida. Por favor, intente de nuevo.", "error");
+                            Utilidades.imprimirMensaje("Entrada no válida. Por favor, intente de nuevo.", "error");
                             continue;
                     }
                     break; // Salir del bucle si la entrada es válida
@@ -201,28 +201,28 @@ public class ProveedorView {
             Proveedor proveedorActualizar = new Proveedor(id, nombre, telefono, direccion, email);
             boolean resultado = controlador.actualizarPorId(id, proveedorActualizar);
             if (resultado) {
-                Utilidades.imprimirMensaje(" Proveedor actualizado con éxito.", "success");
+                Utilidades.imprimirMensaje("Proveedor actualizado con éxito.", "success");
                 Proveedor proveedorAct = controlador.obtenerProveedorPorId(id);
                 Proveedor.cabeceras();
                 proveedorAct.mostrarTabla();
             } else {
-                Utilidades.imprimirMensaje(" Error al actualizar el proveedor.", "error");
+                Utilidades.imprimirMensaje("Error al actualizar el proveedor.", "error");
             }
         } else {
-            Utilidades.imprimirMensaje(" Proveedor no encontrado.", "error");
+            Utilidades.imprimirMensaje("Proveedor no encontrado.", "error");
         }
     }
 
     private void eliminarProveedor() {
         verProveedores();
         System.out.println("");
-        System.out.print(" -> Ingrese el ID del proveedor a eliminar: ");
+        Utilidades.solicitarInput("-> Ingrese el ID del proveedor a eliminar: ");
         int id = scanner.nextInt();
         boolean resultado = controlador.eliminarPorId(id);
         if (resultado) {
-            Utilidades.imprimirMensaje(" Proveedor eliminado con éxito.", "success");
+            Utilidades.imprimirMensaje("Proveedor eliminado con éxito.", "success");
         } else {
-            Utilidades.imprimirMensaje(" Error al eliminar el proveedor.", "error");
+            Utilidades.imprimirMensaje("Error al eliminar el proveedor.", "error");
         }
     }
 

@@ -30,7 +30,7 @@ public class ProductoView {
             System.out.println("| 5. Eliminar Producto               |");
             System.out.println("| 6. Salir                           |");
             System.out.println("+------------------------------------+");
-            System.out.print("| Seleccione una opción: ");
+            Utilidades.solicitarInput("| Seleccione una opción: ");
 
             int opcion = scanner.nextInt();
             switch (opcion) {
@@ -74,28 +74,28 @@ public class ProductoView {
         int id = 0;
         scanner.nextLine();
         // Generando inputs
-        System.out.print(" -> Ingrese nombre: ");
+        Utilidades.solicitarInput("-> Ingrese nombre: ");
         nombre = scanner.nextLine();
 
-        System.out.print(" -> Ingrese categoria: ");
+        Utilidades.solicitarInput("-> Ingrese categoria: ");
         categoria = scanner.nextLine();
 
-        System.out.print(" -> Ingrese descripcion: ");
+        Utilidades.solicitarInput("-> Ingrese descripcion: ");
         descripcion = scanner.nextLine();
 
-        System.out.print(" -> Ingrese unidad de medida: ");
+        Utilidades.solicitarInput("-> Ingrese unidad de medida: ");
         unidad_medida = scanner.nextLine();
 
-        System.out.print(" -> Ingrese precio: ");
+        Utilidades.solicitarInput("-> Ingrese precio: ");
         precio = scanner.nextDouble();
 
         // Creando objeto producto
         Producto producto = new Producto(id, nombre, categoria, descripcion, precio, unidad_medida);
         boolean resultado = controlador.registrarProducto(producto);
         if (resultado) {
-            Utilidades.imprimirMensaje(" Producto registrado con éxito.", "success");
+            Utilidades.imprimirMensaje("Producto registrado con éxito.", "success");
         } else {
-            Utilidades.imprimirMensaje(" Error al registrar el producto.", "error");
+            Utilidades.imprimirMensaje("Error al registrar el producto.", "error");
         }
     }
 
@@ -103,14 +103,14 @@ public class ProductoView {
         Utilidades.cleanConsola();
         System.out.println(" ====> VER PRODUCTO POR ID");
         System.out.println("");
-        System.out.print(" -> Ingrese el ID del producto: ");
+        Utilidades.solicitarInput("-> Ingrese el ID del producto: ");
         int id = scanner.nextInt();
         Producto producto = controlador.obtenerProductoPorId(id);
         if (producto != null) {
             Producto.cabeceras();
             producto.mostrarTabla();
         } else {
-            Utilidades.imprimirMensaje(" Producto no encontrado.", "error");
+            Utilidades.imprimirMensaje("Producto no encontrado.", "error");
         }
     }
 
@@ -133,7 +133,7 @@ public class ProductoView {
         double precio;
         int id;
         // Generando inputs
-        System.out.print(" -> Ingrese el id del producto para actualizar: ");
+        Utilidades.solicitarInput("-> Ingrese el id del producto para actualizar: ");
         id = scanner.nextInt();
 
         // Print de producto a actualizar
@@ -142,31 +142,31 @@ public class ProductoView {
             Producto.cabeceras();
             producto.mostrarTabla();
             System.out.println("");
-            System.out.print(" ¿Desea actualizar todo el producto?  (Sí = 1 | No = 2): ");
+            Utilidades.solicitarInput("¿Desea actualizar todo el producto?  (Sí = 1 | No = 2): ", 0);
             int respuesta = scanner.nextInt();
             scanner.nextLine();
 
             if (respuesta == 1) {
-                System.out.print("Presione 1 para salir, o Enter para continuar: ");
+                Utilidades.solicitarInput("Presione 1 para salir, o Enter para continuar: ", 0);
                 String input = scanner.nextLine();
 
                 if (input.equals("1")) {
                     System.out.print("Saliendo al Menú");
                     return;
                 } else {
-                    System.out.print(" -> Ingrese nombre: ");
+                    Utilidades.solicitarInput("-> Ingrese nombre: ");
                     nombre = scanner.nextLine();
 
-                    System.out.print(" -> Ingrese categoria: ");
+                    Utilidades.solicitarInput("-> Ingrese categoria: ");
                     categoria = scanner.nextLine();
 
-                    System.out.print(" -> Ingrese descripcion: ");
+                    Utilidades.solicitarInput("-> Ingrese descripcion: ");
                     descripcion = scanner.nextLine();
 
-                    System.out.print(" -> Ingrese unidad de medida: ");
+                    Utilidades.solicitarInput("-> Ingrese unidad de medida: ");
                     unidad_medida = scanner.nextLine();
 
-                    System.out.print(" -> Ingrese precio: ");
+                    Utilidades.solicitarInput("-> Ingrese precio: ");
                     precio = scanner.nextDouble();
                 }
             } else {
@@ -179,32 +179,32 @@ public class ProductoView {
                 precio = producto.getPrecio();
 
                 while (true) {
-                    System.out.print(" Ingrese el atributo que quiere actualizar (nombre, categoria, descripcion, precio, unidad): ");
+                    Utilidades.solicitarInput("Ingrese el atributo que quiere actualizar (nombre, categoria, descripcion, precio, unidad): ");
                     atributo = scanner.nextLine();
 
                     switch (atributo.toLowerCase()) {
                         case "nombre":
-                            System.out.print(" -> Ingrese nombre: ");
+                            Utilidades.solicitarInput("-> Ingrese nombre: ");
                             nombre = scanner.nextLine();
                             break;
                         case "categoria":
-                            System.out.print(" -> Ingrese categoría: ");
+                            Utilidades.solicitarInput("-> Ingrese categoría: ");
                             categoria = scanner.nextLine();
                             break;
                         case "descripcion":
-                            System.out.print(" -> Ingrese descripción: ");
+                            Utilidades.solicitarInput("-> Ingrese descripción: ");
                             descripcion = scanner.nextLine();
                             break;
                         case "unidad":
-                            System.out.print(" -> Ingrese unidad: ");
+                            Utilidades.solicitarInput("-> Ingrese unidad: ");
                             unidad_medida = scanner.nextLine();
                             break;
                         case "precio":
-                            System.out.print(" -> Ingrese precio: ");
+                            Utilidades.solicitarInput("-> Ingrese precio: ");
                             precio = scanner.nextDouble();
                             break;
                         default:
-                            Utilidades.imprimirMensaje(" Entrada no válida. Por favor, intente de nuevo.", "error");
+                            Utilidades.imprimirMensaje("Entrada no válida. Por favor, intente de nuevo.", "error");
                             continue;
                     }
                     break; // Salir del bucle si la entrada es válida
@@ -215,28 +215,28 @@ public class ProductoView {
             Producto productoActualizado = new Producto(id, nombre, categoria, descripcion, precio, unidad_medida);
             boolean resultado = controlador.actualizarPorId(id, productoActualizado);
             if (resultado) {
-                Utilidades.imprimirMensaje(" Producto actualizado con éxito.", "success");
+                Utilidades.imprimirMensaje("Producto actualizado con éxito.", "success");
                 Producto productoAct = controlador.obtenerProductoPorId(id);
                 Producto.cabeceras();
                 productoAct.mostrarTabla();
             } else {
-                Utilidades.imprimirMensaje(" Error al actualizar el producto.", "error");
+                Utilidades.imprimirMensaje("Error al actualizar el producto.", "error");
             }
         } else {
-            Utilidades.imprimirMensaje(" Producto no encontrado.", "error");
+            Utilidades.imprimirMensaje("Producto no encontrado.", "error");
         }
     }
 
     private void eliminarProducto() {
         verTodosLosProductos();
         System.out.println("");
-        System.out.print(" -> Ingrese el ID del producto a eliminar: ");
+        Utilidades.solicitarInput("-> Ingrese el ID del producto a eliminar: ");
         int id = scanner.nextInt();
         boolean resultado = controlador.eliminarPorId(id);
         if (resultado) {
-            Utilidades.imprimirMensaje(" Producto eliminado con éxito.", "success");
+            Utilidades.imprimirMensaje("Producto eliminado con éxito.", "success");
         } else {
-            Utilidades.imprimirMensaje(" Error al eliminar el producto.", "error");
+            Utilidades.imprimirMensaje("Error al eliminar el producto.", "error");
         }
     }
 

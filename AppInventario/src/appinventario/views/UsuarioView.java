@@ -36,7 +36,7 @@ public class UsuarioView {
             System.out.println("| 2. Cambiar contraseña              |");
             System.out.println("| 3. Salir                           |");
             System.out.println("+------------------------------------+");
-            System.out.print("| Seleccione una opción: ");
+            Utilidades.solicitarInput("| Seleccione una opción: ");
 
             int opcion = scanner.nextInt();
             scanner.nextLine();
@@ -82,33 +82,32 @@ public class UsuarioView {
         Console console = System.console();
 
         while (true) {
-            char[] contraseñaArray = console.readPassword(" -> Por seguridad, ingrese su contraseña actual: ");
+            char[] contraseñaArray = Utilidades.solicitarInputPassword("-> Por seguridad, ingrese su contraseña actual: ", console);
             String contraseña = new String(contraseñaArray);
 
             if (controlador.verificarPassword(contraseña, user)) {
                 while (true) {
-                    char[] contraseñaNuevaArray = console.readPassword(" -> Ingrese una nueva contraseña: ");
+                    char[] contraseñaNuevaArray = Utilidades.solicitarInputPassword("-> Ingrese nueva contraseña: ", console);
                     String contraseñaNueva = new String(contraseñaNuevaArray);
-                    char[] contraseñaConfirmacionArray = console
-                            .readPassword(" -> Vuelva a escribir la nueva contraseña: ");
+                    char[] contraseñaConfirmacionArray = Utilidades.solicitarInputPassword("-> Vuelva a escribir la nueva contraseña: ", console);
                     String contraseñaConfirmacion = new String(contraseñaConfirmacionArray);
 
                     if (contraseñaNueva.equals(contraseñaConfirmacion)) {
                         user.setPassword(contraseñaConfirmacion);
 
                         if (controlador.actualizarPorId(user.getId(), user)) {
-                            Utilidades.imprimirMensaje(" Contraseña actualizada correctamente.", "success");
+                            Utilidades.imprimirMensaje("Contraseña actualizada correctamente.", "success");
                         } else {
-                            Utilidades.imprimirMensaje(" La contraseña no se pudo actualizar.", "error");
+                            Utilidades.imprimirMensaje("La contraseña no se pudo actualizar.", "error");
                         }
                         break;
                     } else {
-                        Utilidades.imprimirMensaje(" Las contraseñas no coinciden. Por favor, inténtelo de nuevo.", "error");
+                        Utilidades.imprimirMensaje("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.", "error");
                     }
                 }
                 break;
             } else {
-                Utilidades.imprimirMensaje(" Contraseña incorrecta. Inténtelo de nuevo.", "error");
+                Utilidades.imprimirMensaje("Contraseña incorrecta. Inténtelo de nuevo.", "error");
             }
         }
 

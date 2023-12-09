@@ -52,7 +52,7 @@ public class SuministroView {
             System.out.println("| 5. Eliminar Suministro             |");
             System.out.println("| 6. Salir                           |");
             System.out.println("+------------------------------------+");
-            System.out.print("| Seleccione una opción: ");
+            Utilidades.solicitarInput("| Seleccione una opción: ");
 
             int opcion = scanner.nextInt();
             switch (opcion) {
@@ -100,11 +100,11 @@ public class SuministroView {
         // PROVEEDORES
         Proveedor proveedor = inputProveedor();
 
-        System.out.print(" -> Ingrese cantidad de productos: ");
+        Utilidades.solicitarInput("-> Ingrese cantidad de productos: ");
         cantidad = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.print(" -> Ingrese la fecha de caducidad (dd/MM/yyyy): ");
+        Utilidades.solicitarInput("-> Ingrese la fecha de caducidad (dd/MM/yyyy): ");
         String fechaString = scanner.nextLine();
 
         try {
@@ -114,9 +114,9 @@ public class SuministroView {
 
             boolean resultado = controladorSuministro.registrarSuministro(nuevoSuministro);
             if (resultado) {
-                Utilidades.imprimirMensaje(" Suministro registrado con éxito.", "success");
+                Utilidades.imprimirMensaje("Suministro registrado con éxito.", "success");
             } else {
-                Utilidades.imprimirMensaje(" Error al registrar el Suministro.", "error");
+                Utilidades.imprimirMensaje("Error al registrar el Suministro.", "error");
             }
         } catch (ParseException ex) {
             Logger.getLogger(SuministroView.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,14 +128,14 @@ public class SuministroView {
         Utilidades.cleanConsola();
         System.out.println(" ====> VER SUMINISTRO POR ID");
         System.out.println("");
-        System.out.print(" -> Ingrese el ID del suministro: ");
+        Utilidades.solicitarInput("-> Ingrese el ID del suministro: ");
         int id = scanner.nextInt();
         Suministro suministro = controladorSuministro.obtenerSuministroPorId(id);
         if (suministro != null) {
             Suministro.cabeceras();
             suministro.mostrarTabla();
         } else {
-            Utilidades.imprimirMensaje(" Suministro no encontrado.", "error");
+            Utilidades.imprimirMensaje("Suministro no encontrado.", "error");
         }
     }
 
@@ -159,7 +159,7 @@ public class SuministroView {
         Producto producto;
         String fechaString = null;
         // Generando inputs
-        System.out.print(" -> Ingrese el id del suministro para actualizar: ");
+        Utilidades.solicitarInput("-> Ingrese el id del suministro para actualizar: ");
         id = scanner.nextInt();
 
         // Print de proveedor a actualizar
@@ -168,12 +168,12 @@ public class SuministroView {
             Suministro.cabeceras();
             suministro.mostrarTabla();
             System.out.println("");
-            System.out.print(" ¿Desea actualizar todo el suministro?  (Sí = 1 | No = 2): ");
+            Utilidades.solicitarInput("¿Desea actualizar todo el suministro?  (Sí = 1 | No = 2): ", 0);
             int respuesta = scanner.nextInt();
             scanner.nextLine();
 
             if (respuesta == 1) {
-                System.out.print("Presione 1 para salir, o Enter para continuar: ");
+                Utilidades.solicitarInput("Presione 1 para salir, o Enter para continuar: ", 0);
                 String input = scanner.nextLine();
 
                 if (input.equals("1")) {
@@ -183,11 +183,11 @@ public class SuministroView {
                     producto = inputProducto();
                     proveedor = inputProveedor();
 
-                    System.out.print(" -> Ingrese cantidad de productos: ");
+                    Utilidades.solicitarInput("-> Ingrese cantidad de productos: ");
                     cantidad = scanner.nextInt();
                     scanner.nextLine();
 
-                    System.out.print(" -> Ingrese la fecha de caducidad (dd/MM/yyyy): ");
+                    Utilidades.solicitarInput("-> Ingrese la fecha de caducidad (dd/MM/yyyy): ");
                     fechaString = scanner.nextLine();
                 }
             } else {
@@ -199,8 +199,7 @@ public class SuministroView {
                 fechaCaducidad = suministro.getFechaCaducidad();
 
                 while (true) {
-                    System.out.print(
-                            " -> Ingrese el atributo que quiere actualizar (producto,proveedor, cantidad, fechaCaducidad): ");
+                    Utilidades.solicitarInput(" -> Ingrese el atributo que quiere actualizar (producto,proveedor, cantidad, fechaCaducidad): ");
                     atributo = scanner.nextLine();
 
                     switch (atributo.toLowerCase()) {
@@ -212,16 +211,16 @@ public class SuministroView {
                             proveedor = inputProveedor();
                             break;
                         case "cantidad":
-                            System.out.print(" -> Ingrese cantidad de productos: ");
+                            Utilidades.solicitarInput("-> Ingrese cantidad de productos: ");
                             cantidad = scanner.nextInt();
                             scanner.nextLine();
                             break;
                         case "fechaCaducidad":
-                            System.out.print(" -> Ingrese la fecha de caducidad (dd/MM/yyyy): ");
+                            Utilidades.solicitarInput("-> Ingrese la fecha de caducidad (dd/MM/yyyy): ");
                             fechaString = scanner.nextLine();
                             break;
                         default:
-                            Utilidades.imprimirMensaje(" Entrada no válida. Por favor, intente de nuevo.", "error");
+                            Utilidades.imprimirMensaje("Entrada no válida. Por favor, intente de nuevo.", "error");
                             continue;
                     }
                     break; // Salir del bucle si la entrada es válida
@@ -240,28 +239,28 @@ public class SuministroView {
 
                 boolean resultado = controladorSuministro.actualizarPorId(id, suministroActualizar);
                 if (resultado) {
-                    Utilidades.imprimirMensaje(" Suministro actualizado con éxito.", "success");
+                    Utilidades.imprimirMensaje("Suministro actualizado con éxito.", "success");
                 } else {
-                    Utilidades.imprimirMensaje(" Error al actualizar el Suministro.", "error");
+                    Utilidades.imprimirMensaje("Error al actualizar el Suministro.", "error");
                 }
             } catch (ParseException ex) {
                 Logger.getLogger(SuministroView.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            Utilidades.imprimirMensaje(" Suministro no encontrado.", "error");
+            Utilidades.imprimirMensaje("Suministro no encontrado.", "error");
         }
     }
 
     public void eliminarSuministro() {
         verSuministros();
         System.out.println("");
-        System.out.print(" -> Ingrese el ID del suministro a eliminar: ");
+        Utilidades.solicitarInput("-> Ingrese el ID del suministro a eliminar: ");
         int id = scanner.nextInt();
         boolean resultado = controladorSuministro.eliminarPorId(id);
         if (resultado) {
-            Utilidades.imprimirMensaje(" Suministro eliminado con éxito.", "success");
+            Utilidades.imprimirMensaje("Suministro eliminado con éxito.", "success");
         } else {
-            Utilidades.imprimirMensaje(" Error al eliminar el suministro.", "error");
+            Utilidades.imprimirMensaje("Error al eliminar el suministro.", "error");
         }
     }
 
@@ -273,7 +272,7 @@ public class SuministroView {
             producto.mostrarTabla();
         }
         System.out.println("");
-        System.out.print(" -> Ingrese el idproducto: ");
+        Utilidades.solicitarInput("-> Ingrese el idproducto: ");
         int idproducto = scanner.nextInt();
         Producto inputproducto = controladorProducto.obtenerProductoPorId(idproducto);
         return inputproducto;
@@ -287,7 +286,7 @@ public class SuministroView {
             proveedor.mostrarTabla();
         }
         System.out.println("");
-        System.out.print(" -> Ingrese el idproveedor: ");
+        Utilidades.solicitarInput("-> Ingrese el idproveedor: ");
         int idproveedor = scanner.nextInt();
         Proveedor inputproveedor = controladorProveedor.obtenerProveedorPorId(idproveedor);
         return inputproveedor;

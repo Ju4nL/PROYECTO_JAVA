@@ -32,7 +32,7 @@ public class InventarioView {
             System.out.println("| 7. Ver Suministro con Mayor Cantidad |");
             System.out.println("| 8. Salir                             |");
             System.out.println("+--------------------------------------+");
-            System.out.print("| Seleccione una opción: ");
+            Utilidades.solicitarInput("| Seleccione una opción: ");
             
             int opcion = scanner.nextInt();
             switch (opcion) {
@@ -81,7 +81,7 @@ public class InventarioView {
             System.out.println(" ====> SUMINISTRO CON MENOR CANTIDAD");
             mostrarInformacionSuministro(suministro);
         } else {
-            Utilidades.imprimirMensaje(" No hay suministros en el inventario.", "error");
+            Utilidades.imprimirMensaje("No hay suministros en el inventario.", "error");
         }
     }
     
@@ -92,7 +92,7 @@ public class InventarioView {
             System.out.println(" ====> SUMINISTRO CON MAYOR CANTIDAD");
             mostrarInformacionSuministro(suministro);
         } else {
-            Utilidades.imprimirMensaje(" No hay suministros en el inventario.", "error");
+            Utilidades.imprimirMensaje("No hay suministros en el inventario.", "error");
         }
     }
 

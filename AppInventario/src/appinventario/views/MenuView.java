@@ -33,7 +33,7 @@ public class MenuView {
             }
             System.out.println("| 7. Salir                           |");
             System.out.println("+------------------------------------+");
-            System.out.print("| Seleccione una opción: ");
+            Utilidades.solicitarInput("| Seleccione una opción: ");
 
             int opcion = scanner.nextInt();
             switch (opcion) {

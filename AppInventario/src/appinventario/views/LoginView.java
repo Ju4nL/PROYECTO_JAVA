@@ -32,23 +32,20 @@ public class LoginView {
 
         // Nombre del programa en ASCII
         System.out.println("");
-        System.out.println("");
-        System.out.println("      >>                         >=>                                             >=>");
-        System.out.println("     >>=>                        >=>                                             >=>                        >>");
-        System.out.println("    >> >=>     >=> >=>  >=> >=>  >=> >==>>==>  >=>     >=>   >==>    >==>>==>  >=>>==>    >=> >=>  >> >==>        >=>");
-        System.out.println("   >=>  >=>    >>   >=> >>   >=> >=>  >=>  >=>  >=>   >=>  >>   >=>   >=>  >=>   >=>    >=>   >=>   >=>    >=>  >=>  >=>");
-        System.out.println("  >=====>>=>   >>   >=> >>   >=> >=>  >=>  >=>   >=> >=>   >>===>>=>  >=>  >=>   >=>   >=>    >=>   >=>    >=> >=>    >=>");
-        System.out.println(" >=>      >=>  >=> >=>  >=> >=>  >=>  >=>  >=>    >=>=>    >>         >=>  >=>   >=>    >=>   >=>   >=>    >=>  >=>  >=>");
-        System.out.println(">=>        >=> >=>      >=>      >=> >==>  >=>     >=>      >====>   >==>  >=>    >=>    >==>>>==> >==>    >=>    >=>");
-        System.out.println("               >=>      >=>");
+        System.out.println("  █████╗ ██████╗ ██████╗ ██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗████████╗ █████╗ ██████╗ ██╗ ██████╗");
+        System.out.println(" ██╔══██╗██╔══██╗██╔══██╗██║████╗  ██║██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔══██╗██╔══██╗██║██╔═══██╗");
+        System.out.println(" ███████║██████╔╝██████╔╝██║██╔██╗ ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ███████║██████╔╝██║██║   ██║");
+        System.out.println(" ██╔══██║██╔═══╝ ██╔═══╝ ██║██║╚██╗██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██╔══██║██╔══██╗██║██║   ██║");
+        System.out.println(" ██║  ██║██║     ██║     ██║██║ ╚████║ ╚████╔╝ ███████╗██║ ╚████║   ██║   ██║  ██║██║  ██║██║╚██████╔╝");
+        System.out.println(" ╚═╝  ╚═╝╚═╝     ╚═╝     ╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝");
         System.out.println("");
 
         while (!loginCorrecto) {
 
             // Solicitar nombre de usuario y contraseña al usuario
-            System.out.print("Ingrese nombre de usuario: ");
+            Utilidades.solicitarInput("-> Ingrese nombre de usuario: ");
             String usuario = scanner.nextLine();
-            char[] contraseñaArray = console.readPassword("Ingrese contraseña: ");
+            char[] contraseñaArray = Utilidades.solicitarInputPassword("-> Ingrese contraseña: ", console);
             String contraseña = new String(contraseñaArray);
 
             // Almacena el identificador del usuario validado, si no coincide devuelve -1

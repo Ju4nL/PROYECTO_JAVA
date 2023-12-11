@@ -12,7 +12,7 @@ public class Suministro implements CSVConvertible{
     private int cantidad;           // Cantidad actual en stock
     private Date fechaCaducidad;    // Fecha de caducidad del suministro
     private Proveedor proveedor;    // Proveedor del suministro
-    private String filePath=System.getProperty("user.dir")+ "/src/appinventario/csv/suministros.csv";
+    private String filePath=System.getProperty("user.dir")+ "/csv/suministros.csv";
     private static final SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     
     // Constructor

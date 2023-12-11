@@ -8,7 +8,7 @@ public class Proveedor implements CSVConvertible{
     private String telefono; // telefono del proveedor
     private String direccion; // dirección del proveedor
     private String email; // correo electronico del proveedor
-    private String filePath = System.getProperty("user.dir") + "/src/appinventario/csv/proveedores.csv";
+    private String filePath = System.getProperty("user.dir") + "/csv/proveedores.csv";
 
     // Constructor
 

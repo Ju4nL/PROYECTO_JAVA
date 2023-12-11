@@ -9,7 +9,7 @@ public class Producto implements CSVConvertible{
     private String descripcion; //descripcion de producto 
     private double precio; //precio de producto
     private String unidad_medida; //unidad de medida(unidad, gramos, litros, kilogramos)
-    private String filePath=System.getProperty("user.dir")+ "/AppInventario/src/appinventario/csv/productos.csv";
+    private String filePath=System.getProperty("user.dir")+ "/csv/csv/productos.csv";
     //private Proveedor proveedor; // proveedor del producto esto lo hara la clase suministro
     
     //Constructor

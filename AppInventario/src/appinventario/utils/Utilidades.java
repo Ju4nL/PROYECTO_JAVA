@@ -12,6 +12,7 @@ public class Utilidades {
         scanner.nextLine();
         System.out.print("\033[H\033[2J");
         System.out.flush();
+        System.out.println("");
     }
 
     public static void cleanConsola() {
@@ -50,6 +51,7 @@ public class Utilidades {
         System.out.print( colorCode + mensaje + "\u001B[0m");
     }
 
+    // Sobrecarga para cuando el input se realiza con una pregunta
     public static void solicitarInput(String mensaje, int opcion) {
         String colorCode = "\u001B[33m"; // Amarillo para advertencia
         System.out.print( colorCode + mensaje + "\u001B[0m");

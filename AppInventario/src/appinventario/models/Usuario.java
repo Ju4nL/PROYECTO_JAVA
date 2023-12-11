@@ -15,7 +15,7 @@ public class Usuario implements CSVConvertible {
     private String password;
     private String cargo;
     // Ruta del archivo CSV
-    private String filePath = System.getProperty("user.dir") + "/AppInventario/src/appinventario/csv/usuarios.csv";
+    private String filePath = System.getProperty("user.dir") + "/csv/usuarios.csv";
 
     // Constructores
     public Usuario() {

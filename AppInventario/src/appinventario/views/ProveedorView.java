@@ -29,30 +29,30 @@ public class ProveedorView {
             System.out.println("| 5. Eliminar Proveedor              |");
             System.out.println("| 6. Salir                           |");
             System.out.println("+------------------------------------+");
-            String opcion = Utilidades.solicitarInput("| Seleccione una opción: ", scanner);
+            int opcion = Utilidades.solicitarInputInt("| Seleccione una opción: ", scanner);
 
             switch (opcion) {
-                case "1":
+                case 1:
                     registrarProveedor();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "2":
+                case 2:
                     verProveedorPorId();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "3":
+                case 3:
                     verProveedores();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "4":
+                case 4:
                     actualizarProveedor();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "5":
+                case 5:
                     eliminarProveedor();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "6":
+                case 6:
                     System.out.println("Saliendo...");
                     return;
                 default:
@@ -101,15 +101,10 @@ public class ProveedorView {
         System.out.println("");
         Utilidades.imprimirMensaje("Puedes cancelar en cualquier momento, solo escribe cancelar.", "warning");
         System.out.println("");
-        String id = Utilidades.solicitarInput("-> Ingrese el ID del proveedor: ", scanner);
-        if (id == null) { return; }
-        int idInt;
-        try {
-            idInt = Integer.parseInt(id);
-        } catch (Exception e) {
-            idInt = -666;
-        }
-        Proveedor proveedor = controlador.obtenerProveedorPorId(idInt);
+        int id = Utilidades.solicitarInputInt("-> Ingrese el ID del proveedor: ", scanner);
+        if (id == -666) { return; }
+
+        Proveedor proveedor = controlador.obtenerProveedorPorId(id);
         if (proveedor != null) {
             Proveedor.cabeceras();
             proveedor.mostrarTabla();
@@ -136,17 +131,11 @@ public class ProveedorView {
         System.out.println("");
         // Declarando variables
         String nombre, telefono, direccion, email;
-        int idInt;
         // Generando inputs
-        String id = Utilidades.solicitarInput("-> Ingrese el id del proveedor para actualizar: ", scanner);
-        if (id == null) { return; }
-        try {
-            idInt = Integer.parseInt(id);
-        } catch (Exception e) {
-            idInt = -666;
-        }
+        int id = Utilidades.solicitarInputInt("-> Ingrese el id del proveedor para actualizar: ", scanner);
+        if (id == -666) { return; }
         // Print de proveedor a actualizar
-        Proveedor proveedor = controlador.obtenerProveedorPorId(idInt);
+        Proveedor proveedor = controlador.obtenerProveedorPorId(id);
         if (proveedor != null) {
             Proveedor.cabeceras();
             proveedor.mostrarTabla();
@@ -211,11 +200,11 @@ public class ProveedorView {
             }
 
             // Creando objeto proveedor
-            Proveedor proveedorActualizar = new Proveedor(idInt, nombre, telefono, direccion, email);
-            boolean resultado = controlador.actualizarPorId(idInt, proveedorActualizar);
+            Proveedor proveedorActualizar = new Proveedor(id, nombre, telefono, direccion, email);
+            boolean resultado = controlador.actualizarPorId(id, proveedorActualizar);
             if (resultado) {
                 Utilidades.imprimirMensaje("Proveedor actualizado con éxito.", "success");
-                Proveedor proveedorAct = controlador.obtenerProveedorPorId(idInt);
+                Proveedor proveedorAct = controlador.obtenerProveedorPorId(id);
                 Proveedor.cabeceras();
                 proveedorAct.mostrarTabla();
             } else {
@@ -231,15 +220,9 @@ public class ProveedorView {
         System.out.println("");
         Utilidades.imprimirMensaje("Puedes cancelar en cualquier momento, solo escribe cancelar.", "warning");
         System.out.println("");
-        String id = Utilidades.solicitarInput("-> Ingrese el ID del proveedor a eliminar: ", scanner);
-        if (id == null) { return; }
-        int idInt;
-        try {
-            idInt = Integer.parseInt(id);
-        } catch (Exception e) {
-            idInt = -666;
-        }
-        boolean resultado = controlador.eliminarPorId(idInt);
+        int id = Utilidades.solicitarInputInt("-> Ingrese el ID del proveedor a eliminar: ", scanner);
+        if (id == -666) { return; }
+        boolean resultado = controlador.eliminarPorId(id);
         if (resultado) {
             Utilidades.imprimirMensaje("Proveedor eliminado con éxito.", "success");
         } else {

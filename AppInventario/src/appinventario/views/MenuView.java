@@ -33,34 +33,34 @@ public class MenuView {
             }
             System.out.println("| 7. Salir                           |");
             System.out.println("+------------------------------------+");
-            String opcion = Utilidades.solicitarInput("| Seleccione una opción: ", scanner);
+            int opcion = Utilidades.solicitarInputInt("| Seleccione una opción: ", scanner);
 
             switch (opcion) {
-                case "1":
+                case 1:
                     ProductoView.main(null);
                     Utilidades.cleanConsola();
                     break;
-                case "2":
+                case 2:
                     ProveedorView.main(null);
                     Utilidades.cleanConsola();
                     break;
-                case "3":
+                case 3:
                     SuministroView.main(null);
                     Utilidades.cleanConsola();
                     break;
-                case "4":
+                case 4:
                     InventarioView.main(null);
                     Utilidades.cleanConsola();
                     break;
-                case "5":
+                case 5:
                     UsuarioView.main(user);
                     Utilidades.cleanConsola();
                     break;
-                case "6":
+                case 6:
                     AdminView.main(user);
                     Utilidades.cleanConsola();
                     break;
-                case "7":
+                case 7:
                     System.out.println("Saliendo...");
                     System.exit(0);
                 default:

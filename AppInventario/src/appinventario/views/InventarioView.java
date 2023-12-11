@@ -32,38 +32,38 @@ public class InventarioView {
             System.out.println("| 7. Ver Suministro con Mayor Cantidad |");
             System.out.println("| 8. Salir                             |");
             System.out.println("+--------------------------------------+");            
-            String opcion = Utilidades.solicitarInput("| Seleccione una opción: ", scanner);
+            int opcion = Utilidades.solicitarInputInt("| Seleccione una opción: ", scanner);
 
             switch (opcion) {
-                case "1":
+                case 1:
                     suministrovista.registrarSuministro();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "2":
+                case 2:
                     suministrovista.verSuministroPorId();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "3":
+                case 3:
                     suministrovista.verSuministros();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "4":
+                case 4:
                     suministrovista.actualizarSuministro();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "5":
+                case 5:
                     suministrovista.eliminarSuministro();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "6":
+                case 6:
                     verSuministroMenorCantidad();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "7":
+                case 7:
                     verSuministroMayorCantidad();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "8":
+                case 8:
                     System.out.println("Saliendo...");
                     return;
                 default:

@@ -36,18 +36,18 @@ public class UsuarioView {
             System.out.println("| 2. Cambiar contraseña              |");
             System.out.println("| 3. Salir                           |");
             System.out.println("+------------------------------------+");
-            String opcion = Utilidades.solicitarInput("| Seleccione una opción: ", scanner);
+            int opcion = Utilidades.solicitarInputInt("| Seleccione una opción: ", scanner);
 
             switch (opcion) {
-                case "1":
+                case 1:
                     mostrarInfo();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "2":
+                case 2:
                     cambiarContrasenia();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "3":
+                case 3:
                     System.out.println("Saliendo...");
                     return;
                 default:

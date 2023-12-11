@@ -46,6 +46,32 @@ public class Utilidades {
         return consola.readPassword( colorCode + mensaje + "\u001B[0m");
     }
 
+    public static int solicitarInputInt(String mensaje, Scanner scanner) {
+        String colorCode = "\u001B[36m "; // Color cyan para mensajes de solicitud
+        System.out.print( colorCode + mensaje + "\u001B[0m");
+        String retorno = scanner.nextLine();
+        if (retorno.equalsIgnoreCase("cancelar")) { return -666; }
+        try {
+            int retornoInt = Integer.parseInt(retorno);
+            return retornoInt;
+        } catch (Exception e) {
+            return -666;
+        }
+    }
+
+    public static double solicitarInputDouble(String mensaje, Scanner scanner) {
+        String colorCode = "\u001B[36m "; // Color cyan para mensajes de solicitud
+        System.out.print( colorCode + mensaje + "\u001B[0m");
+        String retorno = scanner.nextLine();
+        if (retorno.equalsIgnoreCase("cancelar")) { return -666.6; }
+        try {
+            double retornoDouble = Double.parseDouble(retorno);
+            return retornoDouble;
+        } catch (Exception e) {
+            return -666.6;
+        }
+    }
+
     public static String solicitarInput(String mensaje, Scanner scanner) {
         String colorCode = "\u001B[36m "; // Color cyan para mensajes de solicitud
         System.out.print( colorCode + mensaje + "\u001B[0m");

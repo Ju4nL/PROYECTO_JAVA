@@ -35,26 +35,26 @@ public class AdminView {
             System.out.println("| 4. Actualizar usuario              |");
             System.out.println("| 5. Salir                           |");
             System.out.println("+------------------------------------+");
-            String opcion = Utilidades.solicitarInput("| Seleccione una opción: ", scanner);
+            int opcion = Utilidades.solicitarInputInt("| Seleccione una opción: ", scanner);
 
             switch (opcion) {
-                case "1":
+                case 1:
                     verListaUsuarios();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "2":
+                case 2:
                     registrarUsuario();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "3":
+                case 3:
                     eliminarUsuario();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "4":
+                case 4:
                     actualizarUsuario();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case "5":
+                case 5:
                     System.out.println("Saliendo...");
                     return;
                 default:
@@ -126,15 +126,10 @@ public class AdminView {
         Utilidades.imprimirMensaje("Puedes cancelar en cualquier momento, solo escribe cancelar.", "warning");
         System.out.println("");
     
-        String id = Utilidades.solicitarInput("-> Ingrese el ID del usuario a eliminar: ", scanner);
-        if (id == null) { return; }
-        int idInt;
-        try {
-            idInt = Integer.parseInt(id);
-        } catch (Exception e) {
-            idInt = -666;
-        }
-        boolean resultado = controlador.eliminarPorId(idInt);
+        int id = Utilidades.solicitarInputInt("-> Ingrese el ID del usuario a eliminar: ", scanner);
+        if (id == -666) { return; }
+
+        boolean resultado = controlador.eliminarPorId(id);
         if (resultado) {
             Utilidades.imprimirMensaje("Usuario eliminado con éxito.", "success");
         } else {
@@ -150,16 +145,11 @@ public class AdminView {
         // Declarando variables
         String nombre, apellido, telefono, usuario, contraseña, cargo;
         boolean isAdmin = false;
-        int idInt;
         
-        String id  = Utilidades.solicitarInput("-> Ingrese el id del usuario para actualizar: ", scanner);
-        if (id == null) { return; }
-        try {
-            idInt = Integer.parseInt(id);
-        } catch (Exception e) {
-            idInt = -666;
-        }
-        Usuario user = controlador.obtenerUsuarioPorId(idInt);
+        int id  = Utilidades.solicitarInputInt("-> Ingrese el id del usuario para actualizar: ", scanner);
+        if (id == -666) { return; }
+
+        Usuario user = controlador.obtenerUsuarioPorId(id);
         if (user != null) {
             Usuario.cabeceras();
             user.mostrarTabla();
@@ -250,11 +240,11 @@ public class AdminView {
                 }
             }
 
-            Usuario userUpdate = new Usuario(idInt, isAdmin, nombre, apellido, telefono, usuario, contraseña, cargo);
-            boolean resultado = controlador.actualizarPorId(idInt, userUpdate);
+            Usuario userUpdate = new Usuario(id, isAdmin, nombre, apellido, telefono, usuario, contraseña, cargo);
+            boolean resultado = controlador.actualizarPorId(id, userUpdate);
             if (resultado) {
                 Utilidades.imprimirMensaje("Usuario actualizado con éxito.", "success");
-                Usuario userUp = controlador.obtenerUsuarioPorId(idInt);
+                Usuario userUp = controlador.obtenerUsuarioPorId(id);
                 Usuario.cabeceras();
                 userUp.mostrarTabla();
             } else {

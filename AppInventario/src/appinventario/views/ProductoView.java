@@ -30,31 +30,30 @@ public class ProductoView {
             System.out.println("| 5. Eliminar Producto               |");
             System.out.println("| 6. Salir                           |");
             System.out.println("+------------------------------------+");
-            Utilidades.solicitarInput("| Seleccione una opción: ");
+            String opcion = Utilidades.solicitarInput("| Seleccione una opción: ", scanner);
 
-            int opcion = scanner.nextInt();
             switch (opcion) {
-                case 1:
+                case "1":
                     registrarProducto();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case 2:
+                case "2":
                     verProductoPorId();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case 3:
+                case "3":
                     verTodosLosProductos();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case 4:
+                case "4":
                     actualizarProducto();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case 5:
+                case "5":
                     eliminarProducto();
                     Utilidades.cleanConsolaPausa();
                     break;
-                case 6:
+                case "6":
                     System.out.println("Saliendo...");
                     return;
                 default:
@@ -68,26 +67,33 @@ public class ProductoView {
         Utilidades.cleanConsola();
         System.out.println(" ====> REGISTRAR NUEVO PRODUCTO");
         System.out.println("");
+        Utilidades.imprimirMensaje("Puedes cancelar en cualquier momento, solo escribe cancelar.", "warning");
+        System.out.println("");
         // Declarando variables
         String nombre, categoria, descripcion, unidad_medida;
         double precio;
         int id = 0;
-        scanner.nextLine();
         // Generando inputs
-        Utilidades.solicitarInput("-> Ingrese nombre: ");
-        nombre = scanner.nextLine();
+        nombre = Utilidades.solicitarInput("-> Ingrese nombre: ", scanner);
+        if (nombre == null) { return; }
 
-        Utilidades.solicitarInput("-> Ingrese categoria: ");
-        categoria = scanner.nextLine();
+        categoria = Utilidades.solicitarInput("-> Ingrese categoria: ", scanner);
+        if (categoria == null) { return; }
 
-        Utilidades.solicitarInput("-> Ingrese descripcion: ");
-        descripcion = scanner.nextLine();
+        descripcion = Utilidades.solicitarInput("-> Ingrese descripcion: ", scanner);
+        if (descripcion == null) { return; }
 
-        Utilidades.solicitarInput("-> Ingrese unidad de medida: ");
-        unidad_medida = scanner.nextLine();
+        unidad_medida = Utilidades.solicitarInput("-> Ingrese unidad de medida: ", scanner);
+        if (unidad_medida == null) { return; }
 
-        Utilidades.solicitarInput("-> Ingrese precio: ");
-        precio = scanner.nextDouble();
+        String precioString = Utilidades.solicitarInput("-> Ingrese precio: ", scanner);
+        if (precioString == null) { return; }
+
+        try {
+            precio = Double.parseDouble(precioString);
+        } catch (Exception e) {
+            precio = 0.0f;
+        }
 
         // Creando objeto producto
         Producto producto = new Producto(id, nombre, categoria, descripcion, precio, unidad_medida);
@@ -103,9 +109,16 @@ public class ProductoView {
         Utilidades.cleanConsola();
         System.out.println(" ====> VER PRODUCTO POR ID");
         System.out.println("");
-        Utilidades.solicitarInput("-> Ingrese el ID del producto: ");
-        int id = scanner.nextInt();
-        Producto producto = controlador.obtenerProductoPorId(id);
+        Utilidades.imprimirMensaje("Puedes cancelar en cualquier momento, solo escribe cancelar.", "warning");
+        System.out.println("");
+        String id = Utilidades.solicitarInput("-> Ingrese el ID del producto: ", scanner);
+        int idInt;
+        try {
+            idInt = Integer.parseInt(id);
+        } catch (Exception e) {
+            idInt = -666;
+        }
+        Producto producto = controlador.obtenerProductoPorId(idInt);
         if (producto != null) {
             Producto.cabeceras();
             producto.mostrarTabla();
@@ -128,46 +141,57 @@ public class ProductoView {
     private void actualizarProducto() {
         verTodosLosProductos();
         System.out.println("");
+        Utilidades.imprimirMensaje("Puedes cancelar en cualquier momento, solo escribe cancelar.", "warning");
+        System.out.println("");
         // Declarando variables
         String nombre, categoria, descripcion, unidad_medida;
         double precio;
-        int id;
+        int idInt;
         // Generando inputs
-        Utilidades.solicitarInput("-> Ingrese el id del producto para actualizar: ");
-        id = scanner.nextInt();
+        String id = Utilidades.solicitarInput("-> Ingrese el id del producto para actualizar: ", scanner);
+        if (id == null) { return; }
+        try {
+            idInt = Integer.parseInt(id);
+        } catch (Exception e) {
+            idInt = -666;
+        }
 
         // Print de producto a actualizar
-        Producto producto = controlador.obtenerProductoPorId(id);
+        Producto producto = controlador.obtenerProductoPorId(idInt);
         if (producto != null) {
             Producto.cabeceras();
             producto.mostrarTabla();
             System.out.println("");
-            Utilidades.solicitarInput("¿Desea actualizar todo el producto?  (Sí = 1 | No = 2): ", 0);
-            int respuesta = scanner.nextInt();
-            scanner.nextLine();
+            String respuesta = Utilidades.solicitarInput("¿Desea actualizar todo el producto?  (Sí = 1 | No = 2): ", scanner, 0);
+            if (respuesta == null) { return; }
 
-            if (respuesta == 1) {
-                Utilidades.solicitarInput("Presione 1 para salir, o Enter para continuar: ", 0);
-                String input = scanner.nextLine();
+            if (respuesta.equals("1")) {
+                String input = Utilidades.solicitarInput("Presione 1 para salir, o Enter para continuar: ", scanner, 0);
 
                 if (input.equals("1")) {
                     System.out.print("Saliendo al Menú");
                     return;
                 } else {
-                    Utilidades.solicitarInput("-> Ingrese nombre: ");
-                    nombre = scanner.nextLine();
+                    nombre = Utilidades.solicitarInput("-> Ingrese nombre: ", scanner);
+                    if (nombre == null) { return; }
 
-                    Utilidades.solicitarInput("-> Ingrese categoria: ");
-                    categoria = scanner.nextLine();
+                    categoria = Utilidades.solicitarInput("-> Ingrese categoria: ", scanner);
+                    if (categoria == null) { return; }
 
-                    Utilidades.solicitarInput("-> Ingrese descripcion: ");
-                    descripcion = scanner.nextLine();
+                    descripcion = Utilidades.solicitarInput("-> Ingrese descripcion: ", scanner);
+                    if (descripcion == null) { return; }
 
-                    Utilidades.solicitarInput("-> Ingrese unidad de medida: ");
-                    unidad_medida = scanner.nextLine();
+                    unidad_medida = Utilidades.solicitarInput("-> Ingrese unidad de medida: ", scanner);
+                    if (unidad_medida == null) { return; }
 
-                    Utilidades.solicitarInput("-> Ingrese precio: ");
-                    precio = scanner.nextDouble();
+                    String precioString = Utilidades.solicitarInput("-> Ingrese precio: ", scanner);
+                    if (precioString == null) { return; }
+
+                    try {
+                        precio = Double.parseDouble(precioString);
+                    } catch (Exception e) {
+                        precio = 0.0f;
+                    }
                 }
             } else {
 
@@ -179,29 +203,34 @@ public class ProductoView {
                 precio = producto.getPrecio();
 
                 while (true) {
-                    Utilidades.solicitarInput("Ingrese el atributo que quiere actualizar (nombre, categoria, descripcion, precio, unidad): ");
-                    atributo = scanner.nextLine();
-
+                    atributo = Utilidades.solicitarInput("Ingrese el atributo que quiere actualizar (nombre, categoria, descripcion, precio, unidad): ", scanner);
+                    if (atributo == null) { return; }
+                    
                     switch (atributo.toLowerCase()) {
                         case "nombre":
-                            Utilidades.solicitarInput("-> Ingrese nombre: ");
-                            nombre = scanner.nextLine();
+                            nombre = Utilidades.solicitarInput("-> Ingrese nombre: ", scanner);
+                            if (nombre == null) { return; }
                             break;
                         case "categoria":
-                            Utilidades.solicitarInput("-> Ingrese categoría: ");
-                            categoria = scanner.nextLine();
+                            categoria = Utilidades.solicitarInput("-> Ingrese categoria: ", scanner);
+                            if (categoria == null) { return; }
                             break;
                         case "descripcion":
-                            Utilidades.solicitarInput("-> Ingrese descripción: ");
-                            descripcion = scanner.nextLine();
+                            descripcion = Utilidades.solicitarInput("-> Ingrese descripcion: ", scanner);
+                            if (descripcion == null) { return; }
                             break;
                         case "unidad":
-                            Utilidades.solicitarInput("-> Ingrese unidad: ");
-                            unidad_medida = scanner.nextLine();
+                            unidad_medida = Utilidades.solicitarInput("-> Ingrese unidad de medida: ", scanner);
+                            if (unidad_medida == null) { return; }
                             break;
                         case "precio":
-                            Utilidades.solicitarInput("-> Ingrese precio: ");
-                            precio = scanner.nextDouble();
+                            String precioString = Utilidades.solicitarInput("-> Ingrese precio: ", scanner);
+                            if (precioString == null) { return; }
+                            try {
+                                precio = Double.parseDouble(precioString);
+                            } catch (Exception e) {
+                                precio = 0.0f;
+                            }
                             break;
                         default:
                             Utilidades.imprimirMensaje("Entrada no válida. Por favor, intente de nuevo.", "error");
@@ -212,11 +241,11 @@ public class ProductoView {
             }
 
             // Creando objeto proveedor
-            Producto productoActualizado = new Producto(id, nombre, categoria, descripcion, precio, unidad_medida);
-            boolean resultado = controlador.actualizarPorId(id, productoActualizado);
+            Producto productoActualizado = new Producto(idInt, nombre, categoria, descripcion, precio, unidad_medida);
+            boolean resultado = controlador.actualizarPorId(idInt, productoActualizado);
             if (resultado) {
                 Utilidades.imprimirMensaje("Producto actualizado con éxito.", "success");
-                Producto productoAct = controlador.obtenerProductoPorId(id);
+                Producto productoAct = controlador.obtenerProductoPorId(idInt);
                 Producto.cabeceras();
                 productoAct.mostrarTabla();
             } else {
@@ -230,9 +259,17 @@ public class ProductoView {
     private void eliminarProducto() {
         verTodosLosProductos();
         System.out.println("");
-        Utilidades.solicitarInput("-> Ingrese el ID del producto a eliminar: ");
-        int id = scanner.nextInt();
-        boolean resultado = controlador.eliminarPorId(id);
+        Utilidades.imprimirMensaje("Puedes cancelar en cualquier momento, solo escribe cancelar.", "warning");
+        System.out.println("");
+        String id = Utilidades.solicitarInput("-> Ingrese el ID del producto a eliminar: ", scanner);
+        if (id == null) { return; }
+        int idInt;
+        try {
+            idInt = Integer.parseInt(id);
+        } catch (Exception e) {
+            idInt = -666;
+        }
+        boolean resultado = controlador.eliminarPorId(idInt);
         if (resultado) {
             Utilidades.imprimirMensaje("Producto eliminado con éxito.", "success");
         } else {

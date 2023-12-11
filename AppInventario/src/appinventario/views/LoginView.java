@@ -43,8 +43,7 @@ public class LoginView {
         while (!loginCorrecto) {
 
             // Solicitar nombre de usuario y contraseña al usuario
-            Utilidades.solicitarInput("-> Ingrese nombre de usuario: ");
-            String usuario = scanner.nextLine();
+            String usuario = Utilidades.solicitarInput("-> Ingrese nombre de usuario: ", scanner);
             char[] contraseñaArray = Utilidades.solicitarInputPassword("-> Ingrese contraseña: ", console);
             String contraseña = new String(contraseñaArray);
 
@@ -67,7 +66,7 @@ public class LoginView {
 
     private void clearAndMoveUp() {
         System.out.println("");
-        System.out.print("Presione ENTER para continuar ");
+        System.out.print(" Presione ENTER para continuar ");
         scanner.nextLine();
         System.out.print("\033[1A\033[K");
         System.out.print("\033[1A\033[K");

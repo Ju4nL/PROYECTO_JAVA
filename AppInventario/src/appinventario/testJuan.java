@@ -52,6 +52,15 @@ public class testJuan {
                     System.out.println("Opción no válida. Intente nuevamente.");
                     System.out.println("Opción no válida. Intente nuevamente.");
                     System.out.println("Opción no válida. Intente nuevamente.");
+                    
+                    //nuevas modificaciones
+                    //nuevas modificaciones
+                    //nuevas modificaciones
+                    //nuevas modificaciones
+                    //nuevas modificaciones
+                    //nuevas modificaciones
+                    //nuevas modificaciones
+                    
             }
         
     }

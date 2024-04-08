@@ -47,6 +47,11 @@ public class testJuan {
                     System.exit(0);
                 default:
                     System.out.println("Opción no válida. Intente nuevamente.");
+                    System.out.println("Opción no válida. Intente nuevamente.");
+                    System.out.println("Opción no válida. Intente nuevamente.");
+                    System.out.println("Opción no válida. Intente nuevamente.");
+                    System.out.println("Opción no válida. Intente nuevamente.");
+                    System.out.println("Opción no válida. Intente nuevamente.");
             }
         
     }
